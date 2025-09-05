@@ -1,0 +1,44 @@
+package bankAccount;
+
+class Bank {
+    int accountNo;
+    int customerId;
+    int balance;
+
+    Bank(int accountNo) {
+        this.accountNo = accountNo;
+    }
+
+    Bank(int accountNo, int balance) {
+        this.accountNo = accountNo;
+        this.balance = balance;
+    }
+
+    Bank(int accountNo, int balance, int customerId) {
+        this.accountNo = accountNo;
+        this.balance = balance;
+        this.customerId = customerId;
+    }
+
+    void account_details() {
+        System.out.println("Account Number: " + accountNo);
+        System.out.println("Balance: " + balance);
+        System.out.println("CustomerId: " + customerId);
+    }
+
+}
+
+public class BankAccount {
+
+    public static void main(String[] args) {
+        Bank acc1 = new Bank(345678);
+        Bank acc2 = new Bank(34556, 7847);
+        Bank acc3 = new Bank(875, 34556, 7847);
+
+        acc1.account_details();
+        acc2.account_details();
+        acc3.account_details();
+
+    }
+
+}
