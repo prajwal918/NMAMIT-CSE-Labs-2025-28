@@ -12,3 +12,17 @@ midf <- function(str){
 }
 str <- readline("enter the String")
 midf(str)
+
+
+#b#
+is_palindrome <- function(str) {
+  a <- substring(str, seq(1, nchar(str)), seq(1, nchar(str)))
+  if (paste(a, sep = "", collapse = "") == paste(rev(a), sep = "", collapse = "")) {
+    cat(str, " is a palindrome")
+  } else {
+    cat(str, " is not a palindrome")
+  }
+}
+
+str <- readline("Enter a string: ")
+is_palindrome(str)
