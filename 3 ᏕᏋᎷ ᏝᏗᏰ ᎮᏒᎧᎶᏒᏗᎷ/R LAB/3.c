@@ -23,6 +23,5 @@ is_palindrome <- function(str) {
     cat(str, " is not a palindrome")
   }
 }
-
 str <- readline("Enter a string: ")
 is_palindrome(str)
