@@ -1,50 +1,47 @@
 #include <stdio.h>
-#define MAX 5
 
-int queue[MAX];
-int front = 0;
-int rear = -1;
-int count = 0;
+#define MAX 100
 
-int isEmpty() {
-    return count == 0;
-}
+struct Queue {
+    int queue[MAX];
+    int front;
+    int rear;
+    int count;
+};
 
-int isFull() {
-    return count == MAX;
-}
+struct Queue q = { .front = 0, .rear = -1, .count = 0 };
 
 void enqueue(int value) {
-    if (isFull()) {
+    if (q.count == MAX) {
         printf("Queue is full\n");
         return;
     }
-    rear = (rear + 1) % MAX;
-    queue[rear] = value;
-    count++;
+    q.rear = (q.rear + 1) % MAX;
+    q.queue[q.rear] = value;
+    q.count++;
     printf("Enqueued: %d\n", value);
 }
 
-int dequeue() {
-    if (isEmpty()) {
+void dequeue() {
+    if (q.count == 0) {
         printf("Queue is empty\n");
-        return -1;
+        return;
     }
-    int val = queue[front];
-    front = (front + 1) % MAX;
-    count--;
-    return val;
+    int val = q.queue[q.front];
+    q.front = (q.front + 1) % MAX;
+    q.count--;
+    printf("Deleted item is: %d\n", val);
 }
 
 void display() {
-    if (isEmpty()) {
+    if (q.count == 0) {
         printf("Queue is empty\n");
         return;
     }
     printf("Queue elements: ");
-    int i = front;
-    for (int j = 0; j < count; j++) {
-        printf("%d ", queue[i]);
+    int i = q.front;
+    for (int j = 0; j < q.count; j++) {
+        printf("%d ", q.queue[i]);
         i = (i + 1) % MAX;
     }
     printf("\n");
@@ -52,6 +49,7 @@ void display() {
 
 int main() {
     int choice, value;
+    
     while (1) {
         printf("\n--- Circular Queue Menu ---\n");
         printf("1. Enqueue\n");
@@ -60,6 +58,7 @@ int main() {
         printf("4. Exit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
+        
         switch (choice) {
             case 1:
                 printf("Enter value to enqueue: ");
@@ -67,9 +66,7 @@ int main() {
                 enqueue(value);
                 break;
             case 2:
-                value = dequeue();
-                if (value != -1)
-                    printf("Dequeued: %d\n", value);
+                dequeue();
                 break;
             case 3:
                 display();
