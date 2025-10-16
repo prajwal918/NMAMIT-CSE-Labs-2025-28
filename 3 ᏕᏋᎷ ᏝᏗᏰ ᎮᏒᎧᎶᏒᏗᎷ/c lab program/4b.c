@@ -1,50 +1,52 @@
 #include <stdio.h>
-
 #define MAX 100
 
-struct Queue {
-    int queue[MAX];
-    int front;
-    int rear;
-};
+int queue[MAX];
+int front = 0;
+int rear = -1;
 
-struct Queue q = { .front = 0, .rear = -1 };
+int isEmpty() {
+    return rear < front;
+}
+
+int isFull() {
+    return rear == MAX - 1;
+}
 
 void enqueue(int value) {
-    if (q.rear == MAX - 1) {
+    if (isFull()) {
         printf("Queue is full\n");
         return;
     }
-    q.rear++;
-    q.queue[q.rear] = value;
+    rear++;
+    queue[rear] = value;
     printf("Enqueued: %d\n", value);
 }
 
-void dequeue() {
-    if (q.front > q.rear) {
+int dequeue() {
+    if (isEmpty()) {
         printf("Queue is empty\n");
-        return;
+        return -1;
     }
-    int val = q.queue[q.front];
-    q.front++;
-    printf("Deleted item is: %d\n", val);
+    int val = queue[front];
+    front++;
+    return val;
 }
 
 void display() {
-    if (q.front > q.rear) {
+    if (isEmpty()) {
         printf("Queue is empty\n");
         return;
     }
     printf("Queue elements: ");
-    for (int i = q.front; i <= q.rear; i++) {
-        printf("%d ", q.queue[i]);
+    for (int i = front; i <= rear; i++) {
+        printf("%d ", queue[i]);
     }
     printf("\n");
 }
 
 int main() {
     int choice, value;
-    
     while (1) {
         printf("\n--- Queue Menu ---\n");
         printf("1. Enqueue\n");
@@ -53,7 +55,7 @@ int main() {
         printf("4. Exit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
-        
+
         switch (choice) {
             case 1:
                 printf("Enter value to enqueue: ");
@@ -61,7 +63,9 @@ int main() {
                 enqueue(value);
                 break;
             case 2:
-                dequeue();
+                value = dequeue();
+                if (value != -1)
+                    printf("Dequeued: %d\n", value);
                 break;
             case 3:
                 display();

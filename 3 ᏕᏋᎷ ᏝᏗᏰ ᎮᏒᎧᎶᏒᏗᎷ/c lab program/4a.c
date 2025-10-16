@@ -1,79 +1,32 @@
 #include <stdio.h>
-#define MAX 100
+#include <stdlib.h>
 
-int queue[MAX];
-int front = 0;
-int rear = -1;
+// Function prototype for the tower function
+void tower(int n, char sp, char ap, char dp);
 
-int isEmpty() {
-    return rear < front;
+int main()
+{
+    int n;
+    printf("enter the number of discs: ");
+    scanf("%d", &n);
+    printf("The discs movements are:\n");
+    tower(n, 'A', 'C', 'B');
+    return 0;
 }
 
-int isFull() {
-    return rear == MAX - 1;
-}
-
-void enqueue(int value) {
-    if (isFull()) {
-        printf("Queue is full\n");
+void tower(int n, char sp, char ap, char dp)
+{
+    if (n == 1)
+    {
+        printf("\nMoving disc %d from %c to %c", n, sp, dp);
         return;
     }
-    rear++;
-    queue[rear] = value;
-    printf("Enqueued: %d\n", value);
-}
 
-int dequeue() {
-    if (isEmpty()) {
-        printf("Queue is empty\n");
-        return -1;
-    }
-    int val = queue[front];
-    front++;
-    return val;
-}
+    // Move n-1 discs from source (sp) to auxiliary (ap) using destination (dp) as auxiliary.
+    tower(n - 1, sp, dp, ap);
 
-void display() {
-    if (isEmpty()) {
-        printf("Queue is empty\n");
-        return;
-    }
-    printf("Queue elements: ");
-    for (int i = front; i <= rear; i++) {
-        printf("%d ", queue[i]);
-    }
-    printf("\n");
-}
+    printf("\nMove disc %d from %c to %c", n, sp, dp);
 
-int main() {
-    int choice, value;
-    while (1) {
-        printf("\n--- Queue Menu ---\n");
-        printf("1. Enqueue\n");
-        printf("2. Dequeue\n");
-        printf("3. Display\n");
-        printf("4. Exit\n");
-        printf("Enter choice: ");
-        scanf("%d", &choice);
-
-        switch (choice) {
-            case 1:
-                printf("Enter value to enqueue: ");
-                scanf("%d", &value);
-                enqueue(value);
-                break;
-            case 2:
-                value = dequeue();
-                if (value != -1)
-                    printf("Dequeued: %d\n", value);
-                break;
-            case 3:
-                display();
-                break;
-            case 4:
-                return 0;
-            default:
-                printf("Invalid choice\n");
-        }
-    }
+    // Move n-1 discs from auxiliary (ap) to destination (dp) using source (sp) as auxiliary.
+    tower(n - 1, ap, sp, dp);
 }
