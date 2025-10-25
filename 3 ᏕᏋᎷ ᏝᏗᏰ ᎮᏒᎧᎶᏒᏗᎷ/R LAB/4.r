@@ -7,10 +7,9 @@ library(plotly)
 
 titanic <- read.csv("Titanic_train.csv")
 print(titanic)
-titanic$Survived = factor(titanic$Survived)
+titanic$Survived <- factor(titanic$Survived, levels = c("0", "1"))
 print(titanic$Survived)
-#titanic$Survived = factor(titanic$Pclass, levels = c(0,1))
-#print(titanic$Survived)
+
 barchart = ggplot(titanic, aes(x=factor(Pclass), fill=factor(Survived)))
 +geom_bar(position = "dodge")
 +labs(title = "Survivors by Passenger Class", x="Passenger Class", y="Survval Count", fill="Survived")
