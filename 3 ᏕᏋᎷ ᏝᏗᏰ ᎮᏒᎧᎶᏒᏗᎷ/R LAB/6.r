@@ -39,6 +39,7 @@ filtered_data = merged_data %>% filter(Age > 25)
 print(filtered_data)
 
 # e) Create new variables
+options(scipen = 999)
 transformed_data <- merged_data %>%
   mutate(
     doubled_salary = Salary * 2,
