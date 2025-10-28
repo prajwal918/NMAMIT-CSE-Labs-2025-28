@@ -1,2 +1,64 @@
-# Auto detect text files and perform LF normalization
+# Set default behavior for text files to normalize line endings to LF
 * text=auto
+
+# Normalize line endings for specific file types
+*.c     text
+*.cpp   text
+*.h     text
+*.java  text
+*.js    text
+*.css   text
+*.html  text
+*.md    text
+*.json  text
+*.xml   text
+*.yaml  text
+*.yml   text
+
+# R language files (scripts and data)
+*.r     text
+*.R     text
+*.rmd   text  # R Markdown files
+
+# Ensure Windows-style line endings for specific file types
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+*.ps1   text eol=crlf
+
+# Binary files (don't normalize line endings)
+*.jpg   binary
+*.png   binary
+*.gif   binary
+*.pdf   binary
+*.zip   binary
+*.tar   binary
+*.gz    binary
+
+# Handle merge conflicts for specific file types
+*.lock  merge=union
+*.json  merge=union
+
+# Directives for IDEs and tools
+.vscode/  export-ignore
+.idea/    export-ignore
+*.sublime-workspace export-ignore
+*.sublime-project export-ignore
+
+# Archive files
+*.tar.gz   binary
+*.tgz      binary
+*.tar.bz2  binary
+
+# Database files
+*.sqlite3  binary
+*.db       binary
+
+# Ignore specific OS files
+.DS_Store  export-ignore
+Thumbs.db  export-ignore
+
+# Other specific file types (adjust as needed)
+*.env  export-ignore
+*.bak  export-ignore
+*.swp  export-ignore
+ 
