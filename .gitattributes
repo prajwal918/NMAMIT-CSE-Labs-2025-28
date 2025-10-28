@@ -14,11 +14,9 @@
 *.xml   text
 *.yaml  text
 *.yml   text
-
-# R language files (scripts and data)
 *.r     text
 *.R     text
-*.rmd   text  # R Markdown files
+*.rmd   text
 
 # Ensure Windows-style line endings for specific file types
 *.bat   text eol=crlf
@@ -61,4 +59,3 @@ Thumbs.db  export-ignore
 *.env  export-ignore
 *.bak  export-ignore
 *.swp  export-ignore
- 
