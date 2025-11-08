@@ -12,8 +12,8 @@ NODE getnode() {
     NODE x;
     x = (NODE)malloc(sizeof(struct node));
     if (x == NULL) {
-        printf("Memory not available\n");
-        exit(0);
+        printf("Memory not available");
+        return x;
     }
     return x;
 }
@@ -22,66 +22,135 @@ void freenode(NODE x) {
     free(x);
 }
 
-NODE push(NODE top, int item) {
+NODE insert_front(NODE first, int item) {
     NODE temp;
     temp = getnode();
     temp->info = item;
-    temp->link = top;
+    temp->link = first;
+    return (temp);
+}
+
+NODE insert_rear(int item, NODE first) {
+    NODE temp, cur;
+    temp = getnode();
+    temp->info = item;
+    temp->link = NULL;
+    if (first == NULL)
+        return temp;
+    cur = first;
+    while (cur->link != NULL) {
+        cur = cur->link;
+    }
+    cur->link = temp;
+    return first;
+}
+
+NODE delete_front(NODE first) {
+    NODE temp;
+    if (first == NULL) {
+        printf("List is empty\n");
+        return first;
+    }
+    temp = first;
+    temp = temp->link;
+    printf("Deleted data is %d\n", first->info);
+    freenode(first);
     return temp;
 }
 
-NODE pop(NODE top) {
+NODE display_front(NODE first) {
     NODE temp;
-    if (top == NULL) {
-        printf("Stack is empty\n");
-        return top;
+    int count = 0;
+    if (first == NULL) {
+        printf("List is empty\n");
+        return first;
     }
-    temp = top;
-    top = top->link;
-    printf("Popped element is %d\n", temp->info);
-    freenode(temp);
-    return top;
-}
-
-void display(NODE top) {
-    NODE temp;
-    if (top == NULL) {
-        printf("Stack is empty\n");
-        return;
-    }
-    printf("Stack contents are:\n");
-    temp = top;
+    temp = first;
     while (temp != NULL) {
-        printf("%d\n", temp->info);
+        printf("%d\t", temp->info);
         temp = temp->link;
+        count++;
     }
+    printf("\n");
+    printf("Number of Nodes : %d", count);
 }
 
 int main() {
-    int choice, item;
-    NODE top = NULL;
-    
-    for (;;) {
-        printf("\n1. Push\n2. Pop\n3. Display\n4. Exit\n");
-        printf("Enter your choice: ");
+    NODE first = NULL;
+    int option, value, choice;
+    while (1) {
+        printf("\n   MENU-----\n");
+        printf("1. Insert front\n 2. Display\n 3. Stack\n4. Queue\n 5. Exit");
+        printf("\nEnter your choice: ");
         scanf("%d", &choice);
-        
         switch (choice) {
             case 1:
-                printf("Enter the item: ");
-                scanf("%d", &item);
-                top = push(top, item);
+                printf("Enter the value to be inserted: ");
+                scanf("%d", &value);
+                first = insert_front(first, value);
                 break;
             case 2:
-                top = pop(top);
+                printf("Queue elements: ");
+                display_front(first);
                 break;
             case 3:
-                display(top);
+                option = 0;
+                while (option != 4) {
+                    printf("\n MENU STACK \n");
+                    printf("1. Insert front\n 2. Delete front\n 3. Display\n 4. Exit");
+                    printf("\nEnter your choice:");
+                    scanf("%d", &option);
+                    switch (option) {
+                        case 1:
+                            printf("Enter the value to be inserted: ");
+                            scanf("%d", &value);
+                            first = insert_front(first, value);
+                            break;
+                        case 2:
+                            first = delete_front(first);
+                            break;
+                        case 3:
+                            printf("Queue elements: ");
+                            display_front(first);
+                            break;
+                        case 4:
+                            break;
+                        default:
+                            printf("Enter valid choice");
+                    }
+                }
                 break;
             case 4:
+                option = 0;
+                while (option != 4) {
+                    printf("\n MENU QUEUE \n");
+                    printf(" 1. Insert rear\n 2. Delete front\n 3. Display\n 4. Exit");
+                    printf("\nEnter your choice: ");
+                    scanf("%d", &option);
+                    switch (option) {
+                        case 1:
+                            printf("Enter the value to be inserted: ");
+                            scanf("%d", &value);
+                            first = insert_rear(value, first);
+                            break;
+                        case 2:
+                            first = delete_front(first);
+                            break;
+                        case 3:
+                            printf(" Queue elements: ");
+                            display_front(first);
+                            break;
+                        case 4:
+                            break;
+                        default:
+                            printf("Enter valid choice");
+                    }
+                }
+                break;
+            case 5:
                 exit(0);
             default:
-                printf("Invalid choice\n");
+                printf("Enter valid choice");
         }
     }
     return 0;
