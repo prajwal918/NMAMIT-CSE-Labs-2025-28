@@ -12,7 +12,12 @@ public class FileMethods {
         System.out.println("Path:" + fl.getPath()); // Standardized variable to 'fl'
         System.out.println("Abs Path:" + fl.getAbsolutePath()); // Standardized variable to 'fl'
         System.out.println("Parent:" + fl.getParent()); // Standardized variable to 'fl'
-        System.out.println("This file is:" + (fl.exists() ? "Exists" : "Does not exists")); // Combined lines
+         if (fl.exists()) {
+              System.out.println("File: Found");
+           } else {
+                System.out.println("File: Not found");
+                }
+
         System.out.println("Is file:" + fl.isFile());
         System.out.println("Is Directory:" + fl.isDirectory()); // Standardized variable to 'fl'
         System.out.println("Contents:");
