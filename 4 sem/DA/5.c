@@ -1,37 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define size 100
 
-int Binary_Search(int arr[size], int n, int key, int high, int low) {
-    if (low <= high) {
-        int mid = (low + high) / 2;
-        if (key == arr[mid])
-            return mid;
-        else if (key > arr[mid])
-            return Binary_Search(arr, n, key, high, mid + 1);
-        else
-            return Binary_Search(arr, n, key, mid - 1, low);
-    }
-    return -1;
+void read(int b[100], int n)
+{
+    int i;
+    for(i=0; i<n; i++)
+        scanf("%d", &b[i]);
 }
 
-int main() {
-    int arr[size], n, key;
-    printf("Enter the size of the array \n");
+void Search(int b[100], int n, int key)
+{
+    int low=0, high=n-1, mid, comp=0;
+    while(low <= high)
+    {
+        mid = (low + high) / 2;
+        comp++;
+        if(b[mid] == key)
+        {
+            printf("Element %d found at %d", key, mid+1);
+            printf("\nNo of comparisons: %d", comp);
+            return;
+        }
+        else if(b[mid] < key)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+    printf("Element not found");
+    printf("\nNo of comparisons: %d", comp);
+}
+
+int main()
+{
+    int n, a[100], key;
+    printf("Enter number of elements: ");
     scanf("%d", &n);
-    
-    printf("Enter the array elements \n");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
-    }
-    
-    printf("Enter the key element to be searched \n");
+    printf("Enter the elements: ");
+    read(a, n);
+    printf("Enter the key element: ");
     scanf("%d", &key);
-    
-    if (Binary_Search(arr, n, key, n - 1, 0) != -1) {
-        printf("Key is found at %d", Binary_Search(arr, n, key, n - 1, 0) + 1);
-    } else {
-        printf("key not found");
-    }
+    Search(a, n, key);
     return 0;
 }

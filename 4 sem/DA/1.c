@@ -1,52 +1,57 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
-#define N 100000
-
-int linearSearch(int arr[], int n, int key) {
+void read(int b[100], int n)
+{
     int i;
-    for (i = 0; i < n; i++) {
-        if (arr[i] == key) {
-            return i;
-        }
-    }
-    return -1;
+    for(i=0; i<n; i++)
+        scanf("%d", &b[i]);
 }
 
-int main() {
-    int arr[N];
-    int i, index;
-    clock_t start, end;
-    double total_time;
+void display(int b[100], int n)
+{
+    int i;
+    for(i=0; i<n; i++)
+        printf("%d\t", b[i]);
+}
 
-    // Fill array with random numbers
-    for (i = 0; i < N; i++) {
-        arr[i] = rand() % 10000;
+void sort(int b[100], int n)
+{
+    int i, j, t, swap=0, comp=0, flag=0;
+    for(i=0; i<n-1; i++)
+    {
+        flag=0;
+        for(j=0; j<n-i-1; j++)
+        {
+            if(b[j] > b[j+1])
+            {
+                t = b[j];
+                b[j] = b[j+1];
+                b[j+1] = t;
+                swap++;
+                flag=1;
+            }
+            comp++;
+        }
+        if(flag==0)
+        {
+            break;
+        }
     }
+    printf("\nNo of swaps: %d \nNo of comparisons: %d", swap, comp);
+}
 
-    printf("Linear Search Analysis (Size: 100000)\n");
-
-    // CASE 1: BEST CASE (First Element)
-    start = clock();
-    index = linearSearch(arr, N, arr[0]);
-    end = clock();
-    total_time = (double)(end - start) / CLOCKS_PER_SEC;
-    printf("Best Case Time: %f seconds\n", total_time);
-
-    // CASE 2: MEDIUM CASE (Last Element - arr[99999])
-    start = clock();
-    index = linearSearch(arr, N, arr[N - 1]);
-    end = clock();
-    total_time = (double)(end - start) / CLOCKS_PER_SEC;
-    printf("Medium Case Time: %f seconds\n", total_time);
-
-    // CASE 3: WORST CASE (Not Found -10)
-    start = clock();
-    index = linearSearch(arr, N, -10);
-    end = clock();
-    total_time = (double)(end - start) / CLOCKS_PER_SEC;
-    printf("Worst Case Time: %f seconds\n", total_time);
-
+int main()
+{
+    int n, a[100];
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+    printf("Enter the elements: ");
+    read(a, n);
+    printf("Elements are: ");
+    display(a, n);
+    sort(a, n);
+    printf("\nSorted array: ");
+    display(a, n);
     return 0;
 }

@@ -1,35 +1,44 @@
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int stringmatch(char t[], char p[]) {
-    int m, n;
+int SM(char t[100], char p[100])
+{
+    int i, j, m, n, comp=0;
     m = strlen(t);
     n = strlen(p);
-    for (int i = 0; i <= m - n; i++) {
-        int j = 0;
-        while (j < n && p[j] == t[i + j]) {
-            j = j + 1;
+    
+    for(i=0; i<=(m-n); i++)
+    {
+        j=0;
+        while(j<n && t[i+j] == p[j])
+        {
+            j++;
+            comp++;
         }
-        if (j == n) {
+        if(j==n)
+        {
+            printf("No of comparisons: %d", comp);
             return i;
         }
+        comp++;
     }
+    printf("No of comparisons: %d", comp);
     return -1;
 }
 
-int main() {
+int main()
+{
     char t[100], p[100];
-    int pos;
-    printf("Enter the string : \n");
+    int result;
+    printf("Enter the text: ");
     gets(t);
-    printf("Enter the pattern : \n");
-    gets(p);
-    pos = stringmatch(t, p);
-    if (pos == -1) {
-        printf("Pattern not found");
-    } else {
-        printf("Pattern found in the position : %d \n", pos);
-    }
+    printf("Enter the pattern: ");
+    scanf("%s", p);
+    result = SM(t, p);
+    if(result != -1)
+        printf("\nPattern found at %d index in the text", result+1);
+    else
+        printf("\nPattern not found in the text");
     return 0;
 }
