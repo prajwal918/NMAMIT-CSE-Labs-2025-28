@@ -1,0 +1,25 @@
+DATA SEGMENT
+ORG 5000H
+ARR1 DB 50H, 10H, 40H, 20H, 30H
+DATA ENDS
+CODE SEGMENT
+ASSUME CS:CODE, DS:DATA
+START: MOV AX, DATA
+       MOV DS, AX
+       MOV BL, 04H
+BACK:  LEA SI, ARR1
+       MOV CL, BL
+UP:    MOV AL, [SI]
+       CMP AL, [SI+1]
+       JC SKIP
+       XCHG AL, [SI+1]
+       MOV [SI], AL
+SKIP:  INC SI
+       DEC CL
+       JNZ UP
+       DEC BL
+       JNZ BACK
+       MOV AH, 4CH
+       INT 21H
+CODE ENDS
+END START
