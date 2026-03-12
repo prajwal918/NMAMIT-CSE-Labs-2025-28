@@ -6,7 +6,6 @@
 int graph[MAX][MAX], visited[MAX];
 int stack[MAX], top = -1, n;
 
-// DFS function
 void dfs(int v) {
     visited[v] = 1;
     for (int i = 0; i < n; i++) {
@@ -14,40 +13,32 @@ void dfs(int v) {
             dfs(i);
         }
     }
-    // Push vertex to stack after finishing
     stack[++top] = v;
 }
 
-// Topological Sort function
-void topologicalSort() {
+void topological_sort() {
     for (int i = 0; i < n; i++) {
         if (!visited[i]) {
             dfs(i);
         }
     }
-
-    printf("Topological Order:
-");
+    printf("Topological order\n");
     while (top != -1) {
-        printf("%d ", stack[top--]);
+        printf("%d\t", stack[top--]);
     }
-    printf("
-");
 }
 
 int main() {
     printf("Enter number of vertices: ");
     scanf("%d", &n);
+    printf("Enter adjacency matrix:\n");
 
-    printf("Enter adjacency matrix:
-");
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             scanf("%d", &graph[i][j]);
         }
     }
 
-    topologicalSort();
-
+    topological_sort();
     return 0;
 }
