@@ -1,11 +1,12 @@
 #!/bin/bash
-read -p "Enter the year: " y
-res1=`expr $y % 400`
-res2=`expr $y % 4`
-res3=`expr $y % 100`
-if [ $res1 -eq 0 ] || ([ $res2 -eq 0 ] && [ $res3 -ne 0 ])
+
+read -p "Enter the year " year
+x=`expr $year % 400`
+y=`expr $year % 4`
+z=`expr $year % 100`
+if [ $x -eq 0 ] || ([ $y -eq 0 ] && [ $z -ne 0 ])
 then
-echo "$y is a leap year"
+echo " $year is a leap year"
 else
-echo "$y is not a leap year"
+echo " $year is not leap year"
 fi

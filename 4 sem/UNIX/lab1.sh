@@ -1,20 +1,22 @@
 #!/bin/bash
-read -p "Enter three numbers: " n1 n2 n3
-if [ $n1 -gt $n2 ] && [ $n1 -gt $n3 ]
+
+read -p "Enter the numbers:" a b c
+
+if [ $a -gt $b ] && [ $a -gt $c ]
 then
-echo "$n1 is greatest"
-elif [ $n2 -gt $n1 ] && [ $n2 -gt $n3 ]
+echo " the largest number is $a"
+elif [ $b -gt $c ] && [ $b -gt $a ]
 then
-echo "$n2 is greatest"
+echo "The largest number is $b"
 else
-echo "$n3 is greatest"
+echo "The largest number is $c"
 fi
-if [ $n1 -lt $n2 ] && [ $n1 -lt $n3 ]
+if [ $a -lt $b ] && [ $a -lt $c ]
 then
-echo "$n1 is smallest"
-elif [ $n2 -lt $n1 ] && [ $n2 -lt $n3 ]
+echo " the smallest number is $a"
+elif [ $b -lt $c ] && [ $b -lt $a ]
 then
-echo "$n2 is smallest"
+echo "The smallest number is $b"
 else
-echo "$n3 is smallest"
+echo "The smallest number is $c"
 fi
