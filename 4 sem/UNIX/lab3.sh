@@ -10,8 +10,8 @@ case $op in
     ;;
 '/')
     if [ $b -eq 0 ]
-    then 
-    	echo "Divide by zero error"
+    then
+        echo "Divide by zero error"
     else
     res=`expr $a / $b`
     echo "The result is : $res"
@@ -23,7 +23,7 @@ case $op in
 '%')res=`expr $a % $b`
     echo "The result is : $res"
     ;;
- *) 
+ *)
  echo "Invalid operator"
  ;;
  esac

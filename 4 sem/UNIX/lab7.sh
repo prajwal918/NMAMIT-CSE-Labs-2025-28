@@ -1,6 +1,3 @@
-# 7. Write a shell script to determine the length of the string,
-# extract a substring and locate a position of a character in a string.
-
 #!/bin/bash
 read -p "Enter a String: " str
 if [ -z "$str" ]
