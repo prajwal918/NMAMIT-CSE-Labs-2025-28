@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# Experiment 7: Substring Extraction and Character Search
 read -p "Enter a String: " str
 if [ -z "$str" ]
 then
@@ -12,6 +14,7 @@ else
         echo `expr "$str" : '.*\(...\)'`
         echo "Another Substring is:"
         echo `expr "$str" : '..\(....\).*'`
+        
         read -p "Enter the character to be searched: " ch
         res=`expr "$str" : "[^$ch]*$ch"`
         if [ $res -ne 0 ]
