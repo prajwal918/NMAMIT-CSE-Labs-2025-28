@@ -1,8 +1,8 @@
 #!/bin/bash
 if [ $# -eq 0 ]
 then
-echo "Invalid arguments!!!"
-exit
+        echo "Invalid arguments!!!"
+        exit
 fi
 for file in "$@"
 do
