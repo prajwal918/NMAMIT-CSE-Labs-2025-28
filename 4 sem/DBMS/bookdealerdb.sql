@@ -1,128 +1,126 @@
-create database bookdealerdb;
-use bookdealerdb;
+CREATE DATABASE BOOKDEALER;
+USE BOOKDEALER;
 
-create table author(
-    author_id int,
-    aname varchar(30),
-    acity varchar(20),
-    acountry varchar(20),
-    primary key(author_id)
+CREATE TABLE AUTHOR(
+    author_id INT,
+    aname CHAR(20),
+    acity CHAR(20),
+    acountry CHAR(20),
+    PRIMARY KEY(author_id)
 );
 
-create table publisher(
-    publisher_id int,
-    pname varchar(30),
-    pcity varchar(20),
-    pcountry varchar(20),
-    primary key(publisher_id)
+CREATE TABLE PUBLISHER(
+    publisher_id INT,
+    pname CHAR(20),
+    pcity CHAR(20),
+    pcountry CHAR(20),
+    PRIMARY KEY(publisher_id)
 );
 
-create table category(
-    category_id int,
-    description varchar(30),
-    primary key(category_id)
+CREATE TABLE CATEGORY(
+    category_id INT,
+    description CHAR(30),
+    PRIMARY KEY(category_id)
 );
 
-create table catalog(
-    book_id int,
-    title varchar(40),
-    author_id int,
-    publisher_id int,
-    category_id int,
-    pyear int,
-    price decimal(10,2),
-    primary key(book_id),
-    foreign key(author_id) references author(author_id) on delete cascade on update cascade,
-    foreign key(publisher_id) references publisher(publisher_id) on delete cascade on update cascade,
-    foreign key(category_id) references category(category_id) on delete cascade on update cascade
+CREATE TABLE CATALOG(
+    bookid INT,
+    title VARCHAR(20),
+    author_id INT,
+    publisher_id INT,
+    category_id INT,
+    year INT,
+    price INT,
+    PRIMARY KEY(bookid),
+    FOREIGN KEY(author_id) REFERENCES AUTHOR(author_id)
+      ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(publisher_id) REFERENCES PUBLISHER(publisher_id)
+      ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(category_id) REFERENCES CATEGORY(category_id)
+      ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-create table order_details(
-    order_no int,
-    book_id int,
-    quantity int,
-    primary key(order_no, book_id),
-    foreign key(book_id) references catalog(book_id) on delete cascade on update cascade
+CREATE TABLE ORDER_DETAILS(
+    order_no INT,
+    book_id INT,
+    quantity INT,
+    PRIMARY KEY(order_no, book_id),
+    FOREIGN KEY(book_id) REFERENCES CATALOG(bookid)
+      ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-insert into author values(100,'Ruskin Bond','Texas','London');
-insert into author values(101,'Dale','Nitte','India');
-insert into author values(102,'Sudha','Bangalore','India');
-insert into author values(103,'Shiva','Mysore','India');
-insert into author values(104,'Chetan Bhagat','Delhi','India');
-insert into author values(105,'Navathe','Hong Kong','Japan');
-insert into author values(106,'Jane','Florida','Australia');
-insert into author values(107,'Robin','Amster','Afghan');
+INSERT INTO AUTHOR VALUES
+(100,'Ruskin Bond','Texas','London'),
+(101,'Dale','Nitte','India'),
+(102,'Sudha','Bangalore','India'),
+(103,'Shiva','Mysore','India'),
+(104,'Chetan Bhagat','Delhi','India'),
+(105,'Navathe','Hang Kong','Japan'),
+(106,'Jane','Florida','Australia'),
+(107,'Robin','Amster','Afghan');
 
-insert into publisher values(200,'Penguin','Paris','France');
-insert into publisher values(201,'Sapna','Mumbai','India');
-insert into publisher values(202,'Rupa','Delhi','India');
-insert into publisher values(203,'Savi','Madrid','France');
-insert into publisher values(204,'Pearson','Barcelona','Japan');
-insert into publisher values(205,'Ramesh','Paris','France');
-insert into publisher values(206,'Little House','Texas','London');
-insert into publisher values(207,'Delin','Karnataka','India');
+INSERT INTO PUBLISHER VALUES
+(200,'Penguin','Paris','France'),
+(201,'Sapna','Mumbai','India'),
+(202,'Rupa','Delhi','India'),
+(203,'Savi','Madrid','France'),
+(204,'Pearson','Barcelona','Japan'),
+(205,'Ramesh','Paris','France'),
+(206,'Little House','Texas','London'),
+(207,'Delin','Karnataka','India');
 
-insert into category values(300,'Selfhelp');
-insert into category values(301,'Fiction');
-insert into category values(302,'Fiction');
-insert into category values(303,'Non-fiction');
-insert into category values(304,'Spiritual');
-insert into category values(305,'Self help');
+INSERT INTO CATEGORY VALUES
+(300,'Selfhelp'),
+(301,'Fiction'),
+(302,'Fiction'),
+(303,'Non-fiction'),
+(304,'Spiritual'),
+(305,'Self help');
 
-insert into catalog values(4001,'The Blue',100,200,300,2019,350.00);
-insert into catalog values(4002,'Life Lesson',101,201,301,2020,299.00);
-insert into catalog values(4003,'Mystery',102,202,302,2021,450.00);
-insert into catalog values(4004,'Technology',103,203,303,2018,250.00);
-insert into catalog values(4005,'Mind Power',104,204,304,2022,605.60);
-insert into catalog values(4006,'Business',105,205,305,2017,300.00);
-insert into catalog values(4007,'Science Facts',106,206,306,2016,200.00);
-insert into catalog values(4008,'Self Growth',107,207,307,2023,600.00);
+INSERT INTO CATALOG VALUES
+(4001,'The Blue',100,200,300,2019,350),
+(4002,'Life Lesson',101,201,301,2020,299),
+(4003,'Mystery',102,202,302,2021,450),
+(4004,'Technology',103,203,303,2018,250),
+(4005,'Mind Power',104,204,304,2022,605.6),
+(4006,'Business',105,205,305,2017,300),
+(4007,'Science Facts',106,206,306,2016,200),
+(4008,'Self growth',107,207,307,2023,600);
 
-insert into order_details values(1,4003,1);
-insert into order_details values(2,4002,3);
-insert into order_details values(3,4005,7);
-insert into order_details values(4,4004,1);
-insert into order_details values(5,4006,1);
-insert into order_details values(6,4007,4);
-insert into order_details values(7,4008,2);
-insert into order_details values(8,4001,2);
+INSERT INTO ORDER_DETAILS VALUES
+(01,4003,1),
+(02,4002,3),
+(03,4005,7),
+(04,4004,1),
+(05,4006,1),
+(06,4007,4),
+(07,4008,2),
+(08,4001,2);
 
-select * from author;
-select * from publisher;
-select * from category;
-select * from catalog;
-select * from order_details;
+SELECT * FROM AUTHOR;
+SELECT * FROM PUBLISHER;
+SELECT * FROM CATEGORY;
+SELECT * FROM CATALOG;
+SELECT * FROM ORDER_DETAILS;
 
--- 1) Author details of books having maximum sales.
-select a.author_id, a.aname, a.acity, sum(o.quantity) as qty_sum
-from author a, catalog c, order_details o
-where a.author_id = c.author_id
-  and c.book_id = o.book_id
-group by a.author_id, a.aname, a.acity, c.book_id
-having sum(o.quantity) >= all (
-    select sum(quantity)
-    from order_details
-    group by book_id
-);
+1) SELECT A.author_id, A.aname, A.acity, SUM(O.quantity) AS QTY_SUM
+   FROM AUTHOR A, CATALOG C, ORDER_DETAILS O
+   WHERE A.author_id = C.author_id
+     AND C.bookid = O.book_id
+   GROUP BY A.author_id, A.aname, A.acity, C.bookid
+   HAVING SUM(quantity) >= ALL (
+       SELECT SUM(quantity) FROM ORDER_DETAILS GROUP BY book_id
+   );
 
--- 2) Increase price of books from publisher PEARSON by 10%.
-update catalog
-set price = price * 1.1
-where publisher_id in (
-    select publisher_id
-    from publisher
-    where pname = 'Pearson'
-);
+2) UPDATE CATALOG SET price = price * 1.1
+   WHERE publisher_id IN (
+       SELECT publisher_id FROM publisher
+       WHERE pname = 'Pearson'
+   );
 
-select * from catalog;
-
--- 3) Number of orders for books with minimum sales.
-select count(order_no) as NO_OF_ORDERS, book_id
-from order_details
-group by book_id
-having sum(quantity) <= all (
-    select sum(quantity)
-    from order_details
-    group by book_id
-);
+3) SELECT COUNT(order_no) AS 'NO_OF_ORDERS', book_id
+   FROM ORDER_DETAILS
+   GROUP BY book_id
+   HAVING SUM(quantity) <= ALL (
+       SELECT SUM(quantity) FROM ORDER_DETAILS GROUP BY book_id
+   );
