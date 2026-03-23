@@ -12,7 +12,6 @@ START:
     MOV AX, @DATA
     MOV DS, AX
 
-    ; Create file
     LEA DX, FILE
     MOV CX, 0
     MOV AH, 3CH
@@ -20,18 +19,15 @@ START:
     JC EXIT_FAIL
     MOV BX, AX
 
-    ; Write text into file
     LEA DX, MSG
     MOV CX, MSG_LEN
     MOV AH, 40H
     INT 21H
     JC CLOSE_CREATED_AND_FAIL
 
-    ; Close created file handle
     MOV AH, 3EH
     INT 21H
 
-    ; Open file for reading
     LEA DX, FILE
     MOV AL, 00H
     MOV AH, 3DH
@@ -39,22 +35,18 @@ START:
     JC EXIT_FAIL
     MOV BX, AX
 
-    ; Read file content into buffer
     LEA DX, BUF
     MOV CX, 63
     MOV AH, 3FH
     INT 21H
     JC CLOSE_OPENED_AND_FAIL
 
-    ; AX = bytes read, add '$' so INT 21H/AH=09 can display it
     MOV SI, AX
     MOV BYTE PTR BUF[SI], '$'
 
-    ; Close opened file handle
     MOV AH, 3EH
     INT 21H
 
-    ; Display content
     LEA DX, BUF
     MOV AH, 09H
     INT 21H
