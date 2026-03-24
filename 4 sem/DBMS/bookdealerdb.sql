@@ -30,7 +30,7 @@ CREATE TABLE CATALOG(
     publisher_id INT,
     category_id INT,
     year INT,
-    price INT,
+    price DECIMAL(10,2),
     PRIMARY KEY(bookid),
     FOREIGN KEY(author_id) REFERENCES AUTHOR(author_id)
       ON DELETE CASCADE ON UPDATE CASCADE,
@@ -75,14 +75,16 @@ INSERT INTO CATEGORY VALUES
 (302,'Fiction'),
 (303,'Non-fiction'),
 (304,'Spiritual'),
-(305,'Self help');
+(305,'Self help'),
+(306,'Science'),
+(307,'Self growth');
 
 INSERT INTO CATALOG VALUES
 (4001,'The Blue',100,200,300,2019,350),
 (4002,'Life Lesson',101,201,301,2020,299),
 (4003,'Mystery',102,202,302,2021,450),
 (4004,'Technology',103,203,303,2018,250),
-(4005,'Mind Power',104,204,304,2022,605.6),
+(4005,'Mind Power',104,204,304,2022,605.60),
 (4006,'Business',105,205,305,2017,300),
 (4007,'Science Facts',106,206,306,2016,200),
 (4008,'Self growth',107,207,307,2023,600);
@@ -103,7 +105,8 @@ SELECT * FROM CATEGORY;
 SELECT * FROM CATALOG;
 SELECT * FROM ORDER_DETAILS;
 
-1) SELECT A.author_id, A.aname, A.acity, SUM(O.quantity) AS QTY_SUM
+-- 1)
+SELECT A.author_id, A.aname, A.acity, SUM(O.quantity) AS QTY_SUM
    FROM AUTHOR A, CATALOG C, ORDER_DETAILS O
    WHERE A.author_id = C.author_id
      AND C.bookid = O.book_id
@@ -112,13 +115,15 @@ SELECT * FROM ORDER_DETAILS;
        SELECT SUM(quantity) FROM ORDER_DETAILS GROUP BY book_id
    );
 
-2) UPDATE CATALOG SET price = price * 1.1
+-- 2)
+UPDATE CATALOG SET price = price * 1.1
    WHERE publisher_id IN (
        SELECT publisher_id FROM publisher
        WHERE pname = 'Pearson'
    );
 
-3) SELECT COUNT(order_no) AS 'NO_OF_ORDERS', book_id
+-- 3)
+SELECT COUNT(order_no) AS 'NO_OF_ORDERS', book_id
    FROM ORDER_DETAILS
    GROUP BY book_id
    HAVING SUM(quantity) <= ALL (
