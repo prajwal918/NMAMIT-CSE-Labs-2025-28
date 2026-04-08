@@ -1,0 +1,1 @@
+Organize my notes: Search C:\Users\jogip and C:\Users\jogip\OneDrive\Desktop\whatsapp for all .pdf, .md, .txt, .jpg, .png, .docx, and .pptx files. Move them to G:\My Drive\all notes categorized by Subject (DBMS, UNIX, MP, DAA, SEPM, Maths, Miscellaneous) and then by File Type. Put "Lab Manual" files in their own subfolder under each subject. Append numbers for duplicates.
