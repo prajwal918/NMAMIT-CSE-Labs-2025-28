@@ -6,6 +6,19 @@ Use this when you want a faster alternative to LaTeX for:
 
 ---
 
+## 0) Best method when you need exact DOCX replica
+
+If your main goal is **exact same Word template look** (page breaks, alignment, certificate style, front page spacing):
+
+1. **Best:** DOCX templating (Docxtemplater / Aspose.Words)
+2. **Second:** Word automation + placeholder replacement
+3. **Then:** React + Vite + PDF export (good for design speed, not exact Word fidelity)
+4. **Then:** LaTeX (excellent academic layout, but not exact Word replica)
+
+So for strict replica requirements, use React/Vite for workflow UI if needed, but generate final report from a DOCX template pipeline.
+
+---
+
 ## 1) When React + Vite is a good choice
 
 Use React + Vite if you need:
