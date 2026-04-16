@@ -1,44 +1,35 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-void read(int b[100], int n)
-{
-    int i;
-    for(i=0; i<n; i++)
-        scanf("%d", &b[i]);
+# include < stdio .h >
+int b i n a r y _ s e a r c h ( int a [] , int n , int key ) {
+int low = 0 , high = n -1 , mid ;
+while ( low <= high ) {
+mid = ( low + high ) / 2;
+if ( a [ mid ] == key )
+return mid ;
+else if ( a [ mid ] < key )
+low = mid + 1;
+else
+high = mid - 1;
+}
+return -1;
 }
 
-void Search(int b[100], int n, int key)
-{
-    int low=0, high=n-1, mid, comp=0;
-    while(low <= high)
-    {
-        mid = (low + high) / 2;
-        comp++;
-        if(b[mid] == key)
-        {
-            printf("Element %d found at %d", key, mid+1);
-            printf("\nNo of comparisons: %d", comp);
-            return;
-        }
-        else if(b[mid] < key)
-            low = mid + 1;
-        else
-            high = mid - 1;
-    }
-    printf("Element not found");
-    printf("\nNo of comparisons: %d", comp);
-}
+int main () {
+int a [100] , n , i , key , pos ;
+printf ( " Enter the number of elements : " ) ;
+scanf ( " % d " , & n ) ;
+printf ( " Enter the elements ( in sorted order ) : " ) ;
+for ( i =0; i < n ; i ++)
+scanf ( " % d " , & a [ i ]) ;
 
-int main()
-{
-    int n, a[100], key;
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
-    printf("Enter the elements: ");
-    read(a, n);
-    printf("Enter the key element: ");
-    scanf("%d", &key);
-    Search(a, n, key);
-    return 0;
+printf ( " Enter the key element to search : " ) ;
+scanf ( " % d " , & key ) ;
+
+pos = b i n a r y _ s e a r c h (a , n , key ) ;
+
+if ( pos == -1)
+printf ( " Element not found \ n " ) ;
+else
+printf ( " Element found at position % d \ n " , pos +1) ;
+
+return 0;
 }

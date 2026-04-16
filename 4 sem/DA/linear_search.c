@@ -1,39 +1,29 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-void read(int b[100], int n)
-{
-    int i;
-    for(i=0; i<n; i++)
-        scanf("%d", &b[i]);
+# include < stdio .h >
+int l i n e a r _ s e a r c h ( int a [] , int n , int key ) {
+int i ;
+for ( i =0; i < n ; i ++) {
+if ( a [ i ] == key )
+return i ;
 }
-
-void Search(int b[100], int n, int key)
-{
-    int i, comp=0;
-    for(i=0; i<n; i++)
-    {
-        comp++;
-        if(b[i] == key)
-        {
-            printf("Element %d found at %d", key, i+1);
-            printf("\nNo of comparisons: %d", comp);
-            return;
-        }
-    }
-    printf("Element not found");
-    printf("\nNo of comparisons: %d", comp);
+return -1;
 }
+int main () {
+int a [100] , n , i , key , pos ;
+printf ( " Enter the number of elements : " ) ;
+scanf ( " % d " , & n ) ;
+printf ( " Enter the elements : " ) ;
+for ( i =0; i < n ; i ++)
+scanf ( " % d " , & a [ i ]) ;
 
-int main()
-{
-    int n, a[100], key;
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
-    printf("Enter the elements: ");
-    read(a, n);
-    printf("Enter the key element: ");
-    scanf("%d", &key);
-    Search(a, n, key);
-    return 0;
+printf ( " Enter the key element to search : " ) ;
+scanf ( " % d " , & key ) ;
+
+pos = l i n e a r _ s e a r c h (a , n , key ) ;
+
+if ( pos == -1)
+printf ( " Element not found \ n " ) ;
+else
+printf ( " Element found at position % d \ n " , pos +1) ;
+
+return 0;
 }

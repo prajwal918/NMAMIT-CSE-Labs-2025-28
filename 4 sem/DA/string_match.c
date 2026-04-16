@@ -1,44 +1,35 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-int SM(char t[100], char p[100])
-{
-    int i, j, m, n, comp=0;
-    m = strlen(t);
-    n = strlen(p);
-    
-    for(i=0; i<=(m-n); i++)
-    {
-        j=0;
-        while(j<n && t[i+j] == p[j])
-        {
-            j++;
-            comp++;
-        }
-        if(j==n)
-        {
-            printf("No of comparisons: %d", comp);
-            return i;
-        }
-        comp++;
-    }
-    printf("No of comparisons: %d", comp);
-    return -1;
+# include < stdio .h >
+# include < string .h >
+int s t r i n g _ m a t c h ( char t [] , char p []) {
+int i , j , m , n ;
+n = strlen ( t ) ;
+m = strlen ( p ) ;
+for ( i =0; i <= n - m ; i ++) {
+j = 0;
+while ( j < m && p [ j ] == t [ i + j ]) {
+j ++;
+}
+if ( j == m )
+return i ;
+}
+return -1;
 }
 
-int main()
-{
-    char t[100], p[100];
-    int result;
-    printf("Enter the text: ");
-    gets(t);
-    printf("Enter the pattern: ");
-    scanf("%s", p);
-    result = SM(t, p);
-    if(result != -1)
-        printf("\nPattern found at %d index in the text", result+1);
-    else
-        printf("\nPattern not found in the text");
-    return 0;
+int main () {
+char t [100] , p [50];
+int pos ;
+
+printf ( " Enter the text : " ) ;
+scanf ( " % s " , t ) ;
+printf ( " Enter the pattern : " ) ;
+scanf ( " % s " , p ) ;
+
+pos = s t r i n g _ m a t c h (t , p ) ;
+
+if ( pos == -1)
+printf ( " Pattern not found \ n " ) ;
+else
+printf ( " Pattern found at position % d \ n " , pos +1) ;
+
+return 0;
 }

@@ -1,74 +1,65 @@
-#include <stdio.h>
-#include <stdlib.h>
+# i n c l u d e < s t d i o . h >
+# i n c l u d e < s t d l i b . h >
 
-// Forward declarations
-void heapify(int arr[], int n, int i);
-void swap(int *a, int *b);
-void printarray(int arr[], int n);
-
-void heapsort(int arr[], int n)
+v o i d p r i n t a r r a y ( i n t a r r [ ] , i n t n )
 {
-    for(int i = n/2 - 1; i >= 0; i--)
-        heapify(arr, n, i);
-
-    for(int i = n - 1; i >= 0; i--)
-    {
-        swap(&arr[0], &arr[i]);
-        printf("\n");
-        printarray(arr,i);
-        heapify(arr, i, 0);
-    }
+f o r ( i n t i = 0 ; i < n ; i + + )
+p r i n t f ( " % d \ t " , a r r [ i ] ) ;
 }
 
-void heapify(int arr[], int n, int i)
+v o i d s w a p ( i n t * a , i n t * b )
 {
-    int largest = i;
-    int left = 2*i + 1;
-    int right = 2*i + 2;
-
-    if(left < n && arr[left] > arr[largest])
-        largest = left;
-
-    if(right < n && arr[right] > arr[largest])
-        largest = right;
-
-    if(largest != i)
-    {
-        swap(&arr[i], &arr[largest]);
-        heapify(arr, n, largest);
-    }
+i n t t e m p = * a ;
+* a = * b ;
+* b = t e m p ;
 }
 
-void swap(int *a, int *b)
+v o i d h e a p i f y ( i n t a r r [ ] , i n t n , i n t i )
 {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+i n t l a r g e s t = i ;
+i n t l e f t = 2 * i + 1 ;
+i n t r i g h t = 2 * i + 2 ;
+
+i f ( l e f t < n & & a r r [ l e f t ] > a r r [ l a r g e s t ] )
+l a r g e s t = l e f t ;
+
+i f ( r i g h t < n & & a r r [ r i g h t ] > a r r [ l a r g e s t ] )
+l a r g e s t = r i g h t ;
+
+i f ( l a r g e s t ! = i )
+{
+s w a p ( & a r r [ i ] , & a r r [ l a r g e s t ] ) ;
+h e a p i f y ( a r r , n , l a r g e s t ) ;
+}
 }
 
-void printarray(int arr[], int n)
+v o i d h e a p s o r t ( i n t a r r [ ] , i n t n )
 {
-    for(int i = 0; i < n; i++)
-        printf("%d ", arr[i]);
+f o r ( i n t i = n / 2 - 1 ; i > = 0 ; i - - )
+h e a p i f y ( a r r , n , i ) ;
 
-    printf("\n");
+f o r ( i n t i = n - 1 ; i > = 0 ; i - - )
+{
+s w a p ( & a r r [ 0 ] , & a r r [ i ] ) ;
+h e a p i f y ( a r r , i , 0 ) ;
+}
 }
 
-int main()
+i n t m a i n ( )
 {
-    int arr[20], n;
+i n t a r r [ 2 0 ] , n ;
 
-    printf("Enter the number of elements:\n");
-    scanf("%d", &n);
+p r i n t f ( " E n t e r  t h e  n u m b e r  o f  e l e m e n t s : \ n " ) ;
+s c a n f ( " % d " , & n ) ;
 
-    printf("Enter %d elements:\n", n);
-    for(int i = 0; i < n; i++)
-        scanf("%d", &arr[i]);
+p r i n t f ( " E n t e r  % d  e l e m e n t s :  " , n ) ;
+f o r ( i n t i = 0 ; i < n ; i + + )
+s c a n f ( " % d " , & a r r [ i ] ) ;
 
-    heapsort(arr, n);
+h e a p s o r t ( a r r , n ) ;
 
-    printf("Sorted array is:\n");
-    printarray(arr, n);
+p r i n t f ( " S o r t e d  a r r a y : \ n " ) ;
+p r i n t a r r a y ( a r r , n ) ;
 
-    return 0;
+r e t u r n 0 ;
 }

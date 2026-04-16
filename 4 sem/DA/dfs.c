@@ -23,25 +23,16 @@ p r i n t f ( " \ n " ) ;
 }
 }
 
-v o i d b f s ( i n t a d j _ m a t [ 1 0 ] [ 1 0 ] , i n t q u e u e [ ] , i n t v i s i t e d [ ] , i n t
-s t a r t , i n t n )
+v o i d d f s ( i n t a d j _ m a t [ 1 0 ] [ 1 0 ] , i n t v i s i t e d [ ] , i n t v i s i t i n g , i n t n )
 {
-i n t f r o n t = 0 , r e a r = 0 ;
-q u e u e [ r e a r + + ] = s t a r t ;
-v i s i t e d [ s t a r t ] = 1 ;
-
-w h i l e ( f r o n t < = r e a r )
-{
-i n t c u r r e n t = q u e u e [ f r o n t + + ] ;
-p r i n t f ( " V i s i t i n g  % d  V e r t e x \ n " , c u r r e n t ) ;
+p r i n t f ( " V i s i t i n g  % d  V e r t e x \ n " , v i s i t i n g ) ;
+v i s i t e d [ v i s i t i n g ] = 1 ;
 
 f o r ( i n t i = 0 ; i < n ; i + + )
 {
-i f ( a d j _ m a t [ c u r r e n t ] [ i ] = = 1 & & v i s i t e d [ i ] = = 0 )
+i f ( a d j _ m a t [ v i s i t i n g ] [ i ] = = 1 & & v i s i t e d [ i ] = = 0 )
 {
-q u e u e [ + + r e a r ] = i ;
-v i s i t e d [ i ] = 1 ;
-}
+d f s ( a d j _ m a t , v i s i t e d , i , n ) ;
 }
 }
 }
@@ -52,7 +43,7 @@ i n t n , s ;
 p r i n t f ( " E n t e r  t h e  n u m b e r  o f  v e r t i c e s : \ n " ) ;
 s c a n f ( " % d " , & n ) ;
 
-i n t a d j _ m a t [ 1 0 ] [ 1 0 ] , v i s i t e d [ n ] , q u e u e [ n ] ;
+i n t a d j _ m a t [ 1 0 ] [ 1 0 ] , v i s i t e d [ n ] ;
 
 f o r ( i n t i = 0 ; i < n ; i + + )
 v i s i t e d [ i ] = 0 ;
@@ -66,7 +57,7 @@ d i s p l a y _ m a t ( a d j _ m a t , n ) ;
 p r i n t f ( " E n t e r  t h e  s t a r t i n g  v e r t e x : \ n " ) ;
 s c a n f ( " % d " , & s ) ;
 
-b f s ( a d j _ m a t , q u e u e , v i s i t e d , s , n ) ;
+d f s ( a d j _ m a t , v i s i t e d , s , n ) ;
 
 r e t u r n 0 ;
 }
