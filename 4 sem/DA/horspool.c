@@ -6,54 +6,54 @@
 
 int table [ MAX ] ;
 
-void shiftTable ( char pattern [ ] , int m )
+void shiftTable ( char pattern [ ], int m )
 {
-int i ;
-for ( i = 0 ; i < MAX ; i ++ )
-table [ i ] = m ;
-for ( i = 0 ; i < m - 1 ; i ++ )
-table [ ( int ) pattern [ i ] ] = m - 1 - i ;
+    int i ;
+    for ( i = 0 ; i < MAX ; i ++ )
+        table [ i ] = m ;
+    for ( i = 0 ; i < m - 1 ; i ++ )
+        table [ ( int ) pattern [ i ] ] = m - 1 - i ;
 }
 
-int horspool ( char text [ ] , char pattern [ ] )
+int horspool ( char text [ ], char pattern [ ] )
 {
-int i , j , k ;
-int n = strlen ( text ) ;
-int m = strlen ( pattern ) ;
+    int i, j, k ;
+    int n = strlen ( text ) ;
+    int m = strlen ( pattern ) ;
 
-shiftTable ( pattern , m ) ;
+    shiftTable ( pattern, m ) ;
 
-i = m - 1 ;
-while ( i < n )
-{
-k = 0 ;
-while ( k < m && pattern [ m - 1 - k ] == text [ i - k ] )
-k ++ ;
+    i = m - 1 ;
+    while ( i < n )
+    {
+        k = 0 ;
+        while ( k < m && pattern [ m - 1 - k ] == text [ i - k ] )
+            k ++ ;
 
-if ( k == m )
-return i - m + 1 ;
-else
-i += table [ ( int ) text [ i ] ] ;
-}
-return - 1 ;
+        if ( k == m )
+            return i - m + 1 ;
+        else
+            i += table [ ( int ) text [ i ] ] ;
+    }
+    return - 1 ;
 }
 
 int main ( )
 {
-char text [ 100 ] , pattern [ 50 ] ;
-int pos ;
+    char text [ 100 ], pattern [ 50 ] ;
+    int pos ;
 
-printf ("Enter text: " ) ;
-scanf ("%s" , text ) ;
-printf ("Enter pattern: " ) ;
-scanf ("%s" , pattern ) ;
+    printf ("Enter text: " ) ;
+    scanf ("%s", text ) ;
+    printf ("Enter pattern: " ) ;
+    scanf ("%s", pattern ) ;
 
-pos = horspool ( text , pattern ) ;
+    pos = horspool ( text, pattern ) ;
 
-if ( pos == - 1 )
-printf ("Pattern not found\n" ) ;
-else
-printf ("Pattern found at position %d\n" , pos ) ;
+    if ( pos == - 1 )
+        printf ("Pattern not found\n" ) ;
+    else
+        printf ("Pattern found at position %d\n", pos ) ;
 
-return 0 ;
+    return 0 ;
 }
