@@ -1,16 +1,16 @@
-# include < stdio .h >
-# include < stdlib .h >
+#include <stdio.h>
+#include <stdlib.h>
 void read ( int b [100] , int n )
 {
 int i ;
 for ( i =0; i < n ; i ++)
-scanf ( " % d " , & b [ i ]) ;
+scanf ("%d" , & b [ i ]) ;
 }
 void display ( int b [100] , int n )
 {
 int i ;
 for ( i =0; i < n ; i ++)
-printf ( " % d \ t " , b [ i ]) ;
+printf ("%d\t" , b [ i ]) ;
 }
 
 void sort ( int b [100] , int n )
@@ -32,26 +32,26 @@ comp ++;
 }
 if ( flag ==0)
 {
-printf ( " \ nNo of swaps : % d \ nNo of c o m p a r i s o n s : % d " ,
+printf ("\nNoofswaps:%d\nNoofcomparisons:%d" ,
 swap , comp ) ;
 return ;
 }
 }
-printf ( " \ nNo of swaps : % d \ nNo of c o m p a r i s o n s : % d " , swap , comp
+printf ("\nNoofswaps:%d\nNoofcomparisons:%d" , swap , comp
 ) ;
 }
 
 int main ()
 {
 int b [100] , n ;
-printf ( " Enter number of elements : " ) ;
-scanf ( " % d " , & n ) ;
-printf ( " Enter the elements : " ) ;
+printf ("Enternumberofelements:" ) ;
+scanf ("%d" , & n ) ;
+printf ("Entertheelements:" ) ;
 read (b , n ) ;
-printf ( " Elements are : " ) ;
+printf ("Elementsare:" ) ;
 display (b , n ) ;
 sort (b , n ) ;
-printf ( " \ nSorted array : " ) ;
+printf ("\nSortedarray:" ) ;
 display (b , n ) ;
 return 0;
 }

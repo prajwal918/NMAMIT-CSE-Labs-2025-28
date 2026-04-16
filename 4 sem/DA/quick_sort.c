@@ -1,22 +1,22 @@
-# include < stdio .h >
-# include < stdlib .h >
+#include <stdio.h>
+#include <stdlib.h>
 int a [100];
 void read ( int n )
 {
 int i ;
-printf ( " Enter the elements : " ) ;
+printf ("Entertheelements:" ) ;
 for ( i =0; i < n ; i ++)
-scanf ( " % d " , & a [ i ]) ;
+scanf ("%d" , & a [ i ]) ;
 }
 
 void display ( int n )
 {
 int i ;
 for ( i =0; i < n ; i ++)
-printf ( " % d \ t " , a [ i ]) ;
+printf ("%d\t" , a [ i ]) ;
 }
 
-int p ar ti ti on ( int low , int high )
+int partition ( int low , int high )
 {
 int p = a [ low ] , i = low , j = high + 1 , temp ;
 do
@@ -28,7 +28,7 @@ i ++;
 
 do
 {
-j - -;
+j --;
 } while ( p < a [ j ]) ;
 
 if ( i < j )
@@ -45,26 +45,26 @@ a [ low ] = temp ;
 return j ;
 }
 
-void q ui ck so rt ( int low , int high )
+void quicksort ( int low , int high )
 {
 if ( low < high )
 {
-int k = p ar ti ti on ( low , high ) ;
-q ui ck so rt ( low , k - 1) ;
-q ui ck so rt ( k + 1 , high ) ;
+int k = partition ( low , high ) ;
+quicksort ( low , k - 1) ;
+quicksort ( k + 1 , high ) ;
 }
 }
 
 int main ()
 {
 int n ;
-printf ( " Enter the number of elements : " ) ;
-scanf ( " % d " , & n ) ;
+printf ("Enterthenumberofelements:" ) ;
+scanf ("%d" , & n ) ;
 read ( n ) ;
-printf ( " Elements are : " ) ;
+printf ("Elementsare:" ) ;
 display ( n ) ;
-q ui ck so rt (0 , n - 1) ;
-printf ( " \ nSorted array : " ) ;
+quicksort (0 , n - 1) ;
+printf ("\nSortedarray:" ) ;
 display ( n ) ;
 return 0;
 }

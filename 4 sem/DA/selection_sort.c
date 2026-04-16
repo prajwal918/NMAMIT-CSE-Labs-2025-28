@@ -1,5 +1,5 @@
-# include < stdio .h >
-void s e l e c t i o n _ s o r t ( int a [] , int n ) {
+#include <stdio.h>
+void selection_sort ( int a [] , int n ) {
 int i , j , min , temp ;
 for ( i =0; i <n -1; i ++) {
 min = i ;
@@ -15,17 +15,17 @@ a [ min ] = temp ;
 
 int main () {
 int a [100] , n , i ;
-printf ( " Enter the number of elements : " ) ;
-scanf ( " % d " , & n ) ;
-printf ( " Enter the elements : " ) ;
+printf ("Enterthenumberofelements:" ) ;
+scanf ("%d" , & n ) ;
+printf ("Entertheelements:" ) ;
 for ( i =0; i < n ; i ++)
-scanf ( " % d " , & a [ i ]) ;
+scanf ("%d" , & a [ i ]) ;
 
-s e l e c t i o n _ s o r t (a , n ) ;
+selection_sort (a , n ) ;
 
-printf ( " \ nSorted array : " ) ;
+printf ("\nSortedarray:" ) ;
 for ( i =0; i < n ; i ++)
-printf ( " % d \ t " , a [ i ]) ;
-printf ( " \ n " ) ;
+printf ("%d\t" , a [ i ]) ;
+printf ("\n" ) ;
 return 0;
 }

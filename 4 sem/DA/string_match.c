@@ -1,6 +1,6 @@
-# include < stdio .h >
-# include < string .h >
-int s t r i n g _ m a t c h ( char t [] , char p []) {
+#include <stdio.h>
+#include <string.h>
+int string_match ( char t [] , char p []) {
 int i , j , m , n ;
 n = strlen ( t ) ;
 m = strlen ( p ) ;
@@ -19,17 +19,17 @@ int main () {
 char t [100] , p [50];
 int pos ;
 
-printf ( " Enter the text : " ) ;
-scanf ( " % s " , t ) ;
-printf ( " Enter the pattern : " ) ;
-scanf ( " % s " , p ) ;
+printf ("Enterthetext:" ) ;
+scanf ("%s" , t ) ;
+printf ("Enterthepattern:" ) ;
+scanf ("%s" , p ) ;
 
-pos = s t r i n g _ m a t c h (t , p ) ;
+pos = string_match (t , p ) ;
 
 if ( pos == -1)
-printf ( " Pattern not found \ n " ) ;
+printf ("Patternnotfound\n" ) ;
 else
-printf ( " Pattern found at position % d \ n " , pos +1) ;
+printf ("Patternfoundatposition%d\n" , pos +1) ;
 
 return 0;
 }

@@ -1,72 +1,72 @@
-# i n c l u d e < s t d i o . h >
+#include <stdio.h>
 
-v o i d r e a d _ m a t ( i n t a [ 1 0 ] [ 1 0 ] , i n t n )
+void read_mat ( int a [ 10 ] [ 10 ] , int n )
 {
-f o r ( i n t i = 0 ; i < n ; i + + )
+for ( int i = 0 ; i < n ; i ++ )
 {
-f o r ( i n t j = 0 ; j < n ; j + + )
+for ( int j = 0 ; j < n ; j ++ )
 {
-s c a n f ( " % d " , & a [ i ] [ j ] ) ;
+scanf ("%d" , & a [ i ] [ j ] ) ;
 }
 }
 }
 
-v o i d d i s p l a y _ m a t ( i n t a [ 1 0 ] [ 1 0 ] , i n t n )
+void display_mat ( int a [ 10 ] [ 10 ] , int n )
 {
-f o r ( i n t i = 0 ; i < n ; i + + )
+for ( int i = 0 ; i < n ; i ++ )
 {
-f o r ( i n t j = 0 ; j < n ; j + + )
+for ( int j = 0 ; j < n ; j ++ )
 {
-p r i n t f ( " % d \ t " , a [ i ] [ j ] ) ;
+printf ("%d\t" , a [ i ] [ j ] ) ;
 }
-p r i n t f ( " \ n " ) ;
-}
-}
-
-v o i d b f s ( i n t a d j _ m a t [ 1 0 ] [ 1 0 ] , i n t q u e u e [ ] , i n t v i s i t e d [ ] , i n t
-s t a r t , i n t n )
-{
-i n t f r o n t = 0 , r e a r = 0 ;
-q u e u e [ r e a r + + ] = s t a r t ;
-v i s i t e d [ s t a r t ] = 1 ;
-
-w h i l e ( f r o n t < = r e a r )
-{
-i n t c u r r e n t = q u e u e [ f r o n t + + ] ;
-p r i n t f ( " V i s i t i n g  % d  V e r t e x \ n " , c u r r e n t ) ;
-
-f o r ( i n t i = 0 ; i < n ; i + + )
-{
-i f ( a d j _ m a t [ c u r r e n t ] [ i ] = = 1 & & v i s i t e d [ i ] = = 0 )
-{
-q u e u e [ + + r e a r ] = i ;
-v i s i t e d [ i ] = 1 ;
-}
-}
+printf ("\n" ) ;
 }
 }
 
-i n t m a i n ( )
+void bfs ( int adj_mat [ 10 ] [ 10 ] , int queue [ ] , int visited [ ] , int
+start , int n )
 {
-i n t n , s ;
-p r i n t f ( " E n t e r  t h e  n u m b e r  o f  v e r t i c e s : \ n " ) ;
-s c a n f ( " % d " , & n ) ;
+int front = 0 , rear = 0 ;
+queue [ rear ++ ] = start ;
+visited [ start ] = 1 ;
 
-i n t a d j _ m a t [ 1 0 ] [ 1 0 ] , v i s i t e d [ n ] , q u e u e [ n ] ;
+while ( front <= rear )
+{
+int current = queue [ front ++ ] ;
+printf ("Visiting %d Vertex\n" , current ) ;
 
-f o r ( i n t i = 0 ; i < n ; i + + )
-v i s i t e d [ i ] = 0 ;
+for ( int i = 0 ; i < n ; i ++ )
+{
+if ( adj_mat [ current ] [ i ] == 1 && visited [ i ] == 0 )
+{
+queue [ ++ rear ] = i ;
+visited [ i ] = 1 ;
+}
+}
+}
+}
 
-p r i n t f ( " E n t e r  t h e  a d j a c e n c y  m a t r i x : \ n " ) ;
-r e a d _ m a t ( a d j _ m a t , n ) ;
+int main ( )
+{
+int n , s ;
+printf ("Enter the number of vertices:\n" ) ;
+scanf ("%d" , & n ) ;
 
-p r i n t f ( " T h e  a d j a c e n c y  m a t r i x  i s : \ n " ) ;
-d i s p l a y _ m a t ( a d j _ m a t , n ) ;
+int adj_mat [ 10 ] [ 10 ] , visited [ n ] , queue [ n ] ;
 
-p r i n t f ( " E n t e r  t h e  s t a r t i n g  v e r t e x : \ n " ) ;
-s c a n f ( " % d " , & s ) ;
+for ( int i = 0 ; i < n ; i ++ )
+visited [ i ] = 0 ;
 
-b f s ( a d j _ m a t , q u e u e , v i s i t e d , s , n ) ;
+printf ("Enter the adjacency matrix:\n" ) ;
+read_mat ( adj_mat , n ) ;
 
-r e t u r n 0 ;
+printf ("The adjacency matrix is:\n" ) ;
+display_mat ( adj_mat , n ) ;
+
+printf ("Enter the starting vertex:\n" ) ;
+scanf ("%d" , & s ) ;
+
+bfs ( adj_mat , queue , visited , s , n ) ;
+
+return 0 ;
 }
