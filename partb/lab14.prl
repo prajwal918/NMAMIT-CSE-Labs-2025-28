@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+print "Palindrome check through command line arguments\n";
+
+if ($#ARGV < 0) {
+    print "Enter valid numbers as command line arguments\n";
+    exit;
+}
+
+foreach $num (@ARGV) {
+    if ($num !~ /^\d+$/) {
+        print "Invalid number: $num\n";
+        next;
+    }
+
+    $sum = 0;
+    $a = $num;
+
+    until ($num == 0) {
+        $y = $num % 10;
+        $sum = $sum * 10 + $y;
+        $num = int($num / 10);
+    }
+
+    if ($a == $sum) {
+        print "$a is a palindrome number\n";
+    } else {
+        print "$a is not a palindrome number\n";
+    }
+}

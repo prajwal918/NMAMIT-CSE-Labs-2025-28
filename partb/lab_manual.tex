@@ -1,0 +1,42 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+\titleformat{\section}{\large\bfseries}{}{0pt}{}
+\lstdefinestyle{mystyle}{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!40!black},
+  stringstyle=\color{orange!60!black},
+  showstringspaces=false
+}
+\lstset{style=mystyle}
+
+\title{UNIX Lab Manual - Part B}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{AWK Program 1}
+\lstinputlisting[language=Awk]{lab11.awk}
+
+\section{AWK Program 2}
+\lstinputlisting[language=Awk]{lab12.awk}
+
+\section{AWK Program 3}
+\lstinputlisting[language=Awk]{lab13.awk}
+
+\section{Perl Program 1}
+\lstinputlisting[language=Perl]{lab14.prl}
+
+\section{Perl Program 2}
+\lstinputlisting[language=Perl]{lab15.prl}
+
+\end{document}
