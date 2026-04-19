@@ -43,7 +43,10 @@ DISPHEX PROC NEAR
     PUSH DX
     MOV CX,4
 HX1:
-    ROL BX,4
+    ROL BX,1
+    ROL BX,1
+    ROL BX,1
+    ROL BX,1
     MOV DL,BL
     AND DL,0FH
     CMP DL,09H
