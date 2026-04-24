@@ -9,6 +9,11 @@ START:
     MOV AX,DATA
     MOV DS,AX
 
+    ; 1. Clear screen
+    MOV AH,00H
+    MOV AL,03H
+    INT 10H
+
     MOV AH,09H
     LEA DX,MSG1
     INT 21H
