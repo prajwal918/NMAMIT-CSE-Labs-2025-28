@@ -16,7 +16,7 @@ START:
     MOV DI,LEN
     DEC DI
 
-BS_LOOP:
+L1:
     CMP SI,DI
     JA NOT_FOUND
 
@@ -28,16 +28,16 @@ BS_LOOP:
     MOV AL,ARR[BX]
     CMP AL,KEY
     JE FOUND
-    JB GO_RIGHT
+    JB RIGHT
 
-    DEC BX
     MOV DI,BX
-    JMP BS_LOOP
+    DEC DI
+    JMP L1
 
-GO_RIGHT:
-    INC BX
+RIGHT:
     MOV SI,BX
-    JMP BS_LOOP
+    INC SI
+    JMP L1
 
 FOUND:
     MOV AH,09H
