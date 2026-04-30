@@ -1,0 +1,155 @@
+CREATE DATABASE BANK520;
+USE BANK520;
+
+CREATE TABLE BRANCH (
+    bname VARCHAR(20) PRIMARY KEY,
+    bcity VARCHAR(20),
+    assets REAL
+);
+
+CREATE TABLE ACCOUNT (
+    accno INT,
+    bname VARCHAR(20),
+    balance REAL,
+    PRIMARY KEY (accno),
+    FOREIGN KEY (bname) REFERENCES BRANCH (bname)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE CUSTOMER (
+    cname VARCHAR(30) PRIMARY KEY,
+    cstreet VARCHAR(30),
+    ccity VARCHAR(20)
+);
+
+CREATE TABLE DEPOSITOR (
+    cname VARCHAR(30),
+    accno INT,
+    PRIMARY KEY (cname, accno),
+    FOREIGN KEY (cname) REFERENCES CUSTOMER (cname)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (accno) REFERENCES ACCOUNT (accno)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE LOAN (
+    loanno INT,
+    bname VARCHAR(20),
+    amount REAL,
+    PRIMARY KEY (loanno),
+    FOREIGN KEY (bname) REFERENCES BRANCH (bname)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE BORROWER (
+    cname VARCHAR(30),
+    loanno INT,
+    PRIMARY KEY (cname, loanno),
+    FOREIGN KEY (cname) REFERENCES CUSTOMER (cname)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (loanno) REFERENCES LOAN (loanno)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE (loanno)
+);
+
+INSERT INTO BRANCH VALUES
+('SYND_NITTE', 'KARKALA', 200000),
+('CORP_NITTE', 'KARKALA', 300000),
+('PNB_NITTE', 'KARKALA', 100000),
+('CORP_MANG', 'MANGALORE', 300000),
+('STATE_UDUPI', 'UDUPI', 500000);
+
+INSERT INTO ACCOUNT VALUES
+(12345, 'SYND_NITTE', 6000),
+(12346, 'SYND_NITTE', 7000),
+(14341, 'CORP_NITTE', 15000),
+(14342, 'CORP_NITTE', 16000),
+(13345, 'PNB_NITTE', 11000),
+(12453, 'CORP_MANG', 17000),
+(13245, 'STATE_UDUPI', 14000),
+(13346, 'PNB_NITTE', 9000);
+
+INSERT INTO CUSTOMER VALUES
+('RAKESH', '3RD MAIN', 'KARKALA'),
+('RAMESH', '4TH MAIN', 'KARKALA'),
+('RAJESH', '4TH BLOCK', 'MANGALORE'),
+('KAREEM', '456 NAGAR', 'MANGALORE'),
+('JOHN SMITH', '452 STREET', 'UDUPI');
+
+INSERT INTO DEPOSITOR VALUES
+('RAKESH', 12345),
+('RAKESH', 14341),
+('RAKESH', 13345),
+('RAMESH', 12346),
+('RAMESH', 14342),
+('JOHN SMITH', 12453),
+('JOHN SMITH', 13345),
+('JOHN SMITH', 13245),
+('RAKESH', 12346),
+('RAKESH', 14342),
+('RAKESH', 13346);
+
+INSERT INTO LOAN VALUES
+(1, 'CORP_MANG', 12000),
+(2, 'CORP_NITTE', 16000),
+(3, 'PNB_NITTE', 12000),
+(4, 'STATE_UDUPI', 20000),
+(5, 'SYND_NITTE', 10000);
+
+INSERT INTO BORROWER VALUES
+('RAKESH', 5),
+('RAMESH', 3),
+('RAJESH', 1),
+('KAREEM', 2),
+('JOHN SMITH', 4);
+
+SELECT * FROM BRANCH;
+SELECT * FROM ACCOUNT;
+SELECT * FROM CUSTOMER;
+SELECT * FROM DEPOSITOR;
+SELECT * FROM LOAN;
+SELECT * FROM BORROWER;
+
+-- Query 1: Customers with at least 2 accounts at all branches in Karkala.
+SELECT c.cname
+FROM CUSTOMER c
+WHERE NOT EXISTS (
+    SELECT b.bname
+    FROM BRANCH b
+    WHERE b.bcity = 'KARKALA'
+      AND b.bname NOT IN (
+          SELECT a.bname
+          FROM ACCOUNT a
+          JOIN DEPOSITOR d ON d.accno = a.accno
+          WHERE d.cname = c.cname
+          GROUP BY a.bname
+          HAVING COUNT(*) >= 2
+      )
+);
+
+-- Query 2: Customers with accounts in at least one branch in every city.
+SELECT c.cname
+FROM CUSTOMER c
+WHERE NOT EXISTS (
+    SELECT DISTINCT b.bcity
+    FROM BRANCH b
+    WHERE b.bcity NOT IN (
+        SELECT DISTINCT b1.bcity
+        FROM ACCOUNT a
+        JOIN BRANCH b1 ON b1.bname = a.bname
+        JOIN DEPOSITOR d ON d.accno = a.accno
+        WHERE d.cname = c.cname
+    )
+);
+
+-- Query 3: Customers with accounts in at least 2 branches in Karkala.
+SELECT c.cname
+FROM CUSTOMER c
+WHERE (
+    SELECT COUNT(DISTINCT a.bname)
+    FROM ACCOUNT a
+    JOIN BRANCH b ON b.bname = a.bname
+    JOIN DEPOSITOR d ON d.accno = a.accno
+    WHERE b.bcity = 'KARKALA'
+      AND d.cname = c.cname
+) >= 2;

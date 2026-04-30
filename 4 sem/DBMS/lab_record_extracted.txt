@@ -1,0 +1,379 @@
+Database Management Systems
+Lab Record
+Order Processing & Banking System Database
+Experiments 4 & 5
+2026
+
+Database Management Systems — Lab Record
+EXPERIMENT NO: 4
+Experiment No.: 4 Date: 16/03/2026 Page No.: 14–17
+AIM
+Consider the following relations for an order processing database application in a
+company:
+CUSTOMER (custid : int, cname : string, city : string)
+C ORDER (orderid : int, odate : date, custid : int, ord amt : int)
+ORDER ITEM (orderid : int, itemid : int, qty : int)
+ITEM (itemid : int, unitprice : int)
+SHIPMENT (orderid : int, warehouseid : int, ship date : date)
+WAREHOUSE (warehouseid : int, city : string)
+QUERIES
+1. Produce a listing: CUSTNAME, #oforders, AVG ORDER AMT, where the middle
+column is the total number of orders by the customer and the last column is the
+average order amount for total customer.
+2. For each item that has more than 2 orders, list the item, No. of orders that are
+shipped from at least 2 warehouses, and total quantity of items shipped.
+3. List the customers who have ordered for every item that the company produces.
+TABLE CREATION
+CREATE TABLE CUSTOMER (
+custid INT ,
+cname CHAR (5) NOT NULL ,
+city VARCHAR (30) ,
+PRIMARY KEY ( custid )
+) ;
+CREATE TABLE C_ORDER (
+orderid INT ,
+odate DATETIME ,
+custid INT ,
+ordamt INT ,
+PRIMARY KEY ( orderid ) ,
+FOREIGN KEY ( custid ) R E F E R E N C E S CUSTOMER ( custid )
+ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+CREATE TABLE ITEM (
+itemid INT ,
+price INT ,
+PRIMARY KEY ( itemid )
+) ;
+Page 1
+
+Database Management Systems — Lab Record
+CREATE TABLE O R D E R _ I T E M (
+orderid INT ,
+itemid INT ,
+qty INT ,
+PRIMARY KEY ( orderid , itemid ) ,
+FOREIGN KEY ( orderid ) R E F E R E N C E S C_ORDER ( orderid )
+ON DELETE CASCADE ON UPDATE CASCADE ,
+FOREIGN KEY ( itemid ) R E F E R E N C E S ITEM ( itemid )
+ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+CREATE TABLE WA RE HO US E (
+w a r e h o u s e i d INT ,
+city VARCHAR (20) NOT NULL ,
+PRIMARY KEY ( w a r e h o u s e i d )
+) ;
+CREATE TABLE SHIPMENT (
+orderid INT ,
+w a r e h o u s e i d INT ,
+shipdt DATETIME ,
+PRIMARY KEY ( orderid , w a r e h o u s e i d ) ,
+FOREIGN KEY ( w a r e h o u s e i d ) R E F E R E N C E S WA RE HO US E ( w a r e h o u s e i d )
+ON DELETE CASCADE ON UPDATE CASCADE ,
+FOREIGN KEY ( orderid ) R E F E R E N C E S C_ORDER ( orderid )
+ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+INSERT STATEMENTS
+INSERT INTO CUSTOMER VALUES (111 , ’ John Smith ’ , ’ Karkala ’) ;
+INSERT INTO C_ORDER VALUES (201 , ’ 2001 -08 -03 ’ , 111 , NULL ) ;
+INSERT INTO ITEM VALUES (301 , 2000) ;
+INSERT INTO O R D E R _ I T E M VALUES (201 , 301 , 2) ;
+INSERT INTO WA RE HO US E VALUES (1 , ’ Ma ng al or e ’) ;
+INSERT INTO SHIPMENT VALUES (201 , 1 , ’ 2001 -04 -02 ’) ;
+SELECT * FROM CUSTOMER ;
+SELECT * FROM C_ORDER ;
+SELECT * FROM ITEM ;
+SELECT * FROM O R D E R _ I T E M ;
+SELECT * FROM WA RE HO US E ;
+SELECT * FROM SHIPMENT ;
+SAMPLE DATA
+CUSTOMER
+Page 2
+
+Database Management Systems — Lab Record
+custid cname city
+111 John Smith Karkala
+112 Ramesh N Nitte
+113 Franklin Karkala
+114 Alica Mangalore
+115 Raju Udupi
+C ORDER
+orderid odate custid ordamt
+201 2001-08-03 111 NULL
+202 2002-08-03 111 NULL
+203 2001-08-04 112 NULL
+204 2004-02-01 113 NULL
+205 2001-04-02 114 NULL
+ITEM
+itemid price
+301 2000
+302 2000
+303 1000
+304 5000
+305 4000
+ORDER ITEM
+orderid itemid qty
+201 301 2
+201 302 4
+201 303 4
+202 305 4
+203 302 1
+W AREHOUSE
+warehouseid city
+1 Mangalore
+2 Mangalore
+3 Mangalore
+4 Udupi
+5 Udupi
+SHIPMENT
+Page 3
+
+Database Management Systems — Lab Record
+orderid warehouseid ship-dt
+201 1 2001-04-02
+202 2 2002-05-12
+202 4 2003-06-01
+203 2 2004-02-01
+204 4 2004-06-02
+SQL QUERIES
+Query 1: Customer name, number of orders, and average order amount.
+SELECT C . cname ,
+COUNT ( O . orderid ) AS ’No - of - orders ’ ,
+AVG ( O . ordamt ) AS ’ Average - Order - Amount ’
+FROM CUSTOMER C , C_ORDER O
+WHERE C . custid = O . custid
+GROUP BY C . cname ;
+Query 2: Items with more than 2 orders shipped from at least 2 warehouses.
+SELECT itemid ,
+COUNT (*) AS ’No - of - Orders ’ ,
+SUM ( qty ) AS ’ Total Quantity ’
+FROM O R D E R _ I T E M
+WHERE orderid IN (
+SELECT orderid
+FROM SHIPMENT
+GROUP BY orderid
+HAVING COUNT (*) >= 2
+)
+GROUP BY itemid
+HAVING COUNT (*) > 2;
+Query 3: Customers who have ordered every item the company produces.
+SELECT C . cname
+FROM CUSTOMER C
+WHERE NOT EXISTS (
+( SELECT itemid FROM ITEM )
+EXCEPT
+( SELECT DISTINCT ( OI . itemid )
+FROM ORDERS O , O R D E R _ I T E M OI , CUSTOMER C
+WHERE O . orderid = OI . orderid
+AND O . custid = C . custid )
+) ;
+OUTPUT
+Query 1 Output:
+Page 4
+
+Database Management Systems — Lab Record
+Cname No-of-Orders Average-Order-Amount
+John Smith 2 3500
+Ramesh N 1 8000
+Franklin 1 5000
+Alica 1 2000
+Query 2 Output:
+itemid No-of-Orders Total Quantity
+202 1 4
+Query 3 Output:
+Cname
+Raju
+Page 5
+
+Database Management Systems — Lab Record
+EXPERIMENT NO: 5
+Experiment No.: 5 Date: 20/04/2026 Page No.: 18–21
+AIM
+Consider the following database for a banking system enterprise:
+BRANCH (branch name : string, branch city : string, assets : real)
+ACCOUNT (accno : int, branch name : string, balance : real)
+DEPOSITOR (customer name : string, accno : int)
+CUSTOMER (customer name : string, customer street : string,
+customer city : string)
+LOAN (loan number : int, branch name : string, amount : real)
+BORROWER (customer name : string, loan number : int)
+QUERIES
+1. Find all the customers who have at least 2 accounts at all the branches located in a
+specific city.
+2. Find all the customers who have accounts in at least 1 branch located in all the
+cities.
+3. Find all the customers who have accounts in at least 2 branches located in a specific
+city.
+DATABASE & TABLE CREATION
+CREATE DATABASE BANK520 ;
+USE BANK520 ;
+CREATE TABLE ACCOUNT (
+Accno INT ,
+bname VARCHAR (15) ,
+balance REAL ,
+PRIMARY KEY ( Accno ) ,
+FOREIGN KEY ( bname ) R E F E R E N C E S BRANCH ( bname )
+ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+CREATE TABLE BRANCH (
+bname VARCHAR (15) PRIMARY KEY ,
+bcity VARCHAR (15) ,
+assets REAL
+) ;
+CREATE TABLE CUSTOMER (
+cname VARCHAR (20) PRIMARY KEY ,
+cstreet VARCHAR (25) ,
+ccity VARCHAR (20)
+) ;
+Page 6
+
+Database Management Systems — Lab Record
+CREATE TABLE DE PO SI TO R (
+cname VARCHAR (20) ,
+accno INT ,
+PRIMARY KEY ( cname , accno ) ,
+FOREIGN KEY ( cname ) R E F E R E N C E S CUSTOMER ( cname )
+ON DELETE CASCADE ON UPDATE CASCADE ,
+FOREIGN KEY ( accno ) R E F E R E N C E S ACCOUNT ( Accno )
+ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+CREATE TABLE LOAN (
+loanno INT ,
+bname VARCHAR (25) ,
+amount REAL ,
+PRIMARY KEY ( loanno ) ,
+FOREIGN KEY ( bname ) R E F E R E N C E S BRANCH ( bname )
+ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+CREATE TABLE BORROWER (
+cname VARCHAR (20) ,
+loanno INT ,
+PRIMARY KEY ( cname , loanno ) ,
+FOREIGN KEY ( cname ) R E F E R E N C E S CUSTOMER ( cname )
+ON DELETE CASCADE ON UPDATE CASCADE ,
+FOREIGN KEY ( loanno ) R E F E R E N C E S LOAN ( loanno )
+ON DELETE CASCADE ON UPDATE CASCADE ,
+UNIQUE ( loanno )
+) ;
+INSERT STATEMENTS
+INSERT INTO BRANCH VALUES ( ’ S Y N D _ N I T T E ’ , ’ KARKALA ’ , 200000) ;
+INSERT INTO ACCOUNT VALUES (12345 , ’ S Y N D _ N I T T E ’ , 6000) ;
+INSERT INTO CUSTOMER VALUES ( ’ RAKESH ’ , ’3 RD MAIN ’ , ’ KARKALA ’) ;
+INSERT INTO DE PO SI TO R VALUES ( ’ RAKESH ’ , 12345) ;
+INSERT INTO LOAN VALUES (1 , ’ CO RP _M AN G ’ , 12000) ;
+INSERT INTO BORROWER VALUES ( ’ RAKESH ’ , 5) ;
+SELECT * FROM BRANCH ;
+SELECT * FROM ACCOUNT ;
+SELECT * FROM CUSTOMER ;
+SELECT * FROM DE PO SI TO R ;
+SELECT * FROM LOAN ;
+SELECT * FROM BORROWER ;
+SAMPLE DATA
+BRANCH
+Page 7
+
+Database Management Systems — Lab Record
+BNAME BCITY ASSETS
+SYND NITTE KARKALA 200000
+CORP NITTE KARKALA 300000
+PNB NITTE KARKALA 100000
+CORP MANG MANGALORE 300000
+STATE UDUPI UDUPI 500000
+ACCOUNT
+ACCNO BNAME BALANCE
+12345 SYND NITTE 6000
+12346 SYND NITTE 7000
+14341 CORP NITTE 15000
+14342 CORP NITTE 16000
+13345 PNB NITTE 11000
+12453 CORP MANG 17000
+CUSTOMER
+CNAME CSTREET CCITY
+RAKESH 3RD MAIN KARKALA
+RAMESH 4TH MAIN KARKALA
+RAJESH 4TH BLOCK MANGALORE
+KAREEM 456 NAGAR MANGALORE
+JOHN SMITH 452 STREET UDUPI
+DEPOSITOR
+CNAME ACCNO
+RAKESH 12345
+RAKESH 14341
+RAKESH 13345
+RAMESH 12346
+RAMESH 14342
+JOHN SMITH 12453
+JOHN SMITH 13345
+JOHN SMITH 13245
+RAKESH 12346
+RAKESH 14342
+RAKESH 13346
+LOAN
+Page 8
+
+Database Management Systems — Lab Record
+LOANNO BNAME AMOUNT
+1 CORP MANG 12000
+2 CORP NITTE 16000
+3 PNB NITTE 12000
+4 STATE UDUPI 20000
+5 SYND NITTE 10000
+BORROWER
+CNAME LOANNO
+RAKESH 5
+RAMESH 3
+RAJESH 1
+KAREEM 2
+JOHN SMITH 4
+SQL QUERIES
+Query 1: Customers with at least 2 accounts at all branches in a specific city (Karkala).
+SELECT C . cname
+FROM CUSTOMER C
+WHERE NOT EXISTS (
+( SELECT B . bname FROM BRANCH B WHERE B . bcity = ’ Karkala ’)
+EXCEPT
+( SELECT A . bname
+FROM ACCOUNT A , DE PO SI TO R D , BRANCH B1
+WHERE D . accno = A . accno
+AND A . bname = B1 . bname
+AND D . cname = C . cname
+GROUP BY A . bname HAVING COUNT (*) >= 2)
+) ;
+Query 2: Customers with accounts in at least 1 branch located in all cities.
+SELECT C . cname
+FROM CUSTOMER C
+WHERE NOT EXISTS (
+( SELECT DISTINCT ( B . bcity ) FROM BRANCH B )
+EXCEPT
+( SELECT B1 . bcity
+FROM BRANCH B1 , ACCOUNT A , DE PO SI TO R D
+WHERE A . bname = B1 . bname
+AND D . accno = A . accno
+AND D . cname = C . cname
+GROUP BY B1 . bcity HAVING COUNT (*) >= 1)
+) ;
+Query 3: Customers with accounts in at least 2 branches in a specific city (Karkala).
+SELECT C . cname
+FROM CUSTOMER C
+WHERE EXISTS (
+Page 9
+
+Database Management Systems — Lab Record
+SELECT COUNT ( DISTINCT B . bname )
+FROM BRANCH B , ACCOUNT A , DE PO SI TO R D
+WHERE A . bname = B . bname
+AND D . accno = A . accno
+AND B . bcity = ’ Karkala ’
+AND D . cname = C . cname
+GROUP BY B . bcity HAVING COUNT (*) >= 2
+) ;
+OUTPUT
+Query 1 Output:
+CNAME
+RAKESH
+Query 2 Output:
+CNAME
+JOHN SMITH
+Query 3 Output:
+CNAME
+RAKESH
+RAMESH
+Page 10
