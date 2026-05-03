@@ -119,8 +119,8 @@ SELECT * FROM BORROWER;
 SELECT C.cname
 FROM CUSTOMER C
 WHERE NOT EXISTS (
-    SELECT B.bname
-    FROM BRANCH B
+    SELECT B.bname 
+    FROM BRANCH B 
     WHERE B.bcity = 'KARKALA'
 
     EXCEPT
@@ -130,7 +130,7 @@ WHERE NOT EXISTS (
     WHERE D.accno = A.accno
       AND A.bname = B1.bname
       AND D.cname = C.cname
-    GROUP BY A.bname
+    GROUP BY A.bname 
     HAVING COUNT(*) >= 2
 );
 
