@@ -115,46 +115,51 @@ SELECT * FROM DEPOSITOR;
 SELECT * FROM LOAN;
 SELECT * FROM BORROWER;
 
--- Query 1: Customers with at least 2 accounts at all branches in Karkala.
-SELECT c.cname
-FROM CUSTOMER c
+-- Query 1: At least 2 accounts at all Karkala branches.
+SELECT C.cname
+FROM CUSTOMER C
 WHERE NOT EXISTS (
-    SELECT b.bname
-    FROM BRANCH b
-    WHERE b.bcity = 'KARKALA'
-      AND b.bname NOT IN (
-          SELECT a.bname
-          FROM ACCOUNT a
-          JOIN DEPOSITOR d ON d.accno = a.accno
-          WHERE d.cname = c.cname
-          GROUP BY a.bname
-          HAVING COUNT(*) >= 2
-      )
+    SELECT B.bname
+    FROM BRANCH B
+    WHERE B.bcity = 'KARKALA'
+
+    EXCEPT
+
+    SELECT A.bname
+    FROM ACCOUNT A, DEPOSITOR D, BRANCH B1
+    WHERE D.accno = A.accno
+      AND A.bname = B1.bname
+      AND D.cname = C.cname
+    GROUP BY A.bname
+    HAVING COUNT(*) >= 2
 );
 
--- Query 2: Customers with accounts in at least one branch in every city.
-SELECT c.cname
-FROM CUSTOMER c
+-- Query 2: Accounts in at least 1 branch in all cities.
+SELECT C.cname
+FROM CUSTOMER C
 WHERE NOT EXISTS (
-    SELECT DISTINCT b.bcity
-    FROM BRANCH b
-    WHERE b.bcity NOT IN (
-        SELECT DISTINCT b1.bcity
-        FROM ACCOUNT a
-        JOIN BRANCH b1 ON b1.bname = a.bname
-        JOIN DEPOSITOR d ON d.accno = a.accno
-        WHERE d.cname = c.cname
-    )
+    SELECT DISTINCT B.bcity
+    FROM BRANCH B
+
+    EXCEPT
+
+    SELECT B1.bcity
+    FROM BRANCH B1, ACCOUNT A, DEPOSITOR D
+    WHERE A.bname = B1.bname
+      AND D.accno = A.accno
+      AND D.cname = C.cname
+    GROUP BY B1.bcity
+    HAVING COUNT(*) >= 1
 );
 
--- Query 3: Customers with accounts in at least 2 branches in Karkala.
-SELECT c.cname
-FROM CUSTOMER c
+-- Query 3: At least 2 Karkala branches total.
+SELECT C.cname
+FROM CUSTOMER C
 WHERE (
-    SELECT COUNT(DISTINCT a.bname)
-    FROM ACCOUNT a
-    JOIN BRANCH b ON b.bname = a.bname
-    JOIN DEPOSITOR d ON d.accno = a.accno
-    WHERE b.bcity = 'KARKALA'
-      AND d.cname = c.cname
+    SELECT COUNT(DISTINCT B.bname)
+    FROM BRANCH B, ACCOUNT A, DEPOSITOR D
+    WHERE A.bname = B.bname
+      AND D.accno = A.accno
+      AND B.bcity = 'KARKALA'
+      AND D.cname = C.cname
 ) >= 2;
