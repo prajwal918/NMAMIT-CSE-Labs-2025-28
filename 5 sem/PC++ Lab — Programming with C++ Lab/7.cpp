@@ -7,7 +7,7 @@ int length;
 char *name;
 public:
 String(){}
-String(char s[])
+String(const char s[])
 {
 length=strlen(s);
 name=new char[length+1];
