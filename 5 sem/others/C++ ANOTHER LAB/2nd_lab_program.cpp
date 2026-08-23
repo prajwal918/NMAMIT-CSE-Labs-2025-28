@@ -1,60 +1,44 @@
-/*Given that an EMPLOYEE class ontains following members. Data members:Eno, Ename 
-and salary Member functions: to read the data , to print data members.Write a C++ program 
-to read the data of N employees and display detials of each employee.(use Array of objects 
-concept).*/
-
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-class Employee{
-    char emp_name[50];
-    int emp_num;
-    int salary;
- public:
-    void getdata();
-    void putdata();
+class Time
+{
+    private:
+        int hour;
+        int min;
+    public:
+        void read()
+        {
+            cout << "Enter hours:";
+            cin >> hour;
+            cout << "Enter minutes:";
+            cin >> min;
+        }
+        void display()
+        {
+            cout << "\nThe Time is :" << hour << " hours and " << min << " minutes" << endl;
+        }
+        void compute(Time t1, Time t2)
+        {
+            int h = (t1.min + t2.min) / 60;
+            min = (t1.min + t2.min) % 60;
+            hour = t1.hour + t2.hour + h;
+        }
 };
-
-void Employee::getdata()
-{
-    cout<<"Enter the name of the employee:";
-    cin>>emp_name;
-    cout<<"Enter the employee number:";
-    cin>>emp_num;
-    cout<<"Enter the salary:";
-    cin>>salary;
-}
-
-void Employee::putdata()
-{
-    cout<<"The name of the employee is:";
-    cout<<emp_name;
-    cout<<"\n";
-    cout<<"The employee number is:";
-    cout<<emp_num;
-    cout<<"\n";
-    cout<<"The salary is:";
-    cout<<salary;
-    cout<<"\n";
-}
 
 int main()
 {
-   Employee e[100];
-   int n;
-   cout<<"Enter the number of employees:";
-   cin>>n;
-   for(int i=0;i<n;i++)
-   {
-       cout<<"Enter the details of employee"<<i+1<<endl;
-       e[i].getdata();
-   }
-   cout<<"The enetered information is:"<<endl;
-   for(int i=0;i<n;i++)
-   {
-       cout<<"The details of the employee"<<i+1<<endl;
-       e[i].putdata();
-       cout<<"\n";
-   }
-   return 0;
+    Time A, B, C;
+    cout << "\n A" << endl;
+    A.read();
+    cout << "\n B" << endl;
+    B.read();
+    cout << "\n A" << endl;
+    A.display();
+    cout << "\n B" << endl;
+    B.display();
+    C.compute(A, B);
+    cout << "\n C" << endl;
+    C.display();
+    return 0;
 }
