@@ -1,0 +1,71 @@
+#include <stdio.h>
+
+struct Process
+{
+    int pid, bt, wt, tt;
+};
+
+int main()
+{
+    int i, n, tq, time=0, totwt=0, tottt=0, flag=0;
+    float avgwt, avgtt;
+    printf("Enter the number of processes: ");
+    scanf("%d", &n);
+    if(n <= 0)
+    {
+        printf("Number of processes must be positive\n");
+        return 1;
+    }
+    struct Process p[n];
+    int remBT[n];
+    for(i=0; i<n; i++)
+    {
+        p[i].pid = i+1;
+        printf("Enter burst time for p%d : ", i+1);
+        scanf("%d", &p[i].bt);
+        remBT[i] = p[i].bt;
+    }
+    printf("Enter the time quantum: ");
+    scanf("%d", &tq);
+    if(tq <= 0)
+    {
+        printf("Time quantum must be positive\n");
+        return 1;
+    }
+    while(flag==0)
+    {
+        flag=1;
+        for(i=0; i<n; i++)
+        {
+            if(remBT[i] > 0)
+            {
+                flag=0;
+                if(remBT[i] > tq)
+                {
+                    time = time + tq;
+                    remBT[i] = remBT[i]-tq;
+                } else {
+                    time = time + remBT[i];
+                    remBT[i] = 0;
+                    p[i].tt = time;
+                    p[i].wt = p[i].tt - p[i].bt;
+                }
+            }
+        }
+    }
+    printf("\nProcess BT\t WT\t TAT ");
+    for(i=0; i<n; i++)
+    {
+        printf("\n %d\t %d\t %d\t %d ", p[i].pid, p[i].bt,
+               p[i].wt, p[i].tt);
+        totwt = totwt + p[i].wt;
+        tottt = tottt + p[i].tt;
+    }
+    avgwt = (float) totwt/n;
+    avgtt = (float) tottt/n;
+    printf("\nTotal Waiting Time: %d ms\nAverage Waiting Time: %.2f ms\n",
+           totwt, avgwt);
+    printf("Total Turn Around Time: %d ms\nAverage Turn Around Time: %.2f ms\n",
+           tottt, avgtt);
+    return 0;
+}
