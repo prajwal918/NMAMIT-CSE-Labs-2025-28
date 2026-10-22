@@ -1,9 +1,10 @@
-BEGIN { count=0; }
+#gedit exp1.awk
+BEGIN { count = 0; }
 {
-    if ($1 == "d")
+    if($1 == "d")
     {
         count++;
-        #printf("%s\t %s\n", $5, $11);
+        printf("%s\t %s\n", $5, $11);
     }
 }
-END { printf (" The number of packets dropped = %d\n", count); }
+END { printf(" The number of packets dropped =%d \n", count ); }
