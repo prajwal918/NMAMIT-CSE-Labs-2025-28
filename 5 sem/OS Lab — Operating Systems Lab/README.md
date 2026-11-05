@@ -2,8 +2,12 @@
 
 Programs and documentation for the Operating Systems Laboratory (5th Semester B.E. CSE), NMAM Institute of Technology, Nitte.
 
-## Lab Manual
-- [**OS_LAB_MANUAL.pdf**](OS_LAB_MANUAL.pdf) - Complete laboratory manual containing experiment aims, C programs, shell scripts, and execution outputs.
+## Lab Manual & Study Guides
+- [**OS_LAB_MANUAL.pdf**](OS_LAB_MANUAL.pdf) - Complete laboratory manual (updated for Experiments 1–10) containing experiment aims, C programs, shell scripts, and execution outputs.
+- [**OS_Lab_Line_by_Line_Study_Guide.pdf**](OS_Lab_Line_by_Line_Study_Guide.pdf) - Comprehensive 115-page line-by-line study guide covering Experiments 1–10, code line explanations, tested exam variations, and mock papers.
+- [**OS_Lab_Revision_Sheet.pdf**](OS_Lab_Revision_Sheet.pdf) - 1-page quick revision sheet summarizing all 10 experiments and key exam concepts.
+- [**OS_Lab_Guide_Source.zip**](OS_Lab_Guide_Source.zip) - Complete LaTeX source code, drills, and mock problem implementations.
+- [**Unit_II_Task_Solutions.pdf**](Unit_II_Task_Solutions.pdf) - Cryptography & Network Security Unit II worked task solutions.
 
 ## Experiments
 
@@ -18,6 +22,7 @@ Programs and documentation for the Operating Systems Laboratory (5th Semester B.
 | **7** | [`exp7_sjf`](exp7_sjf) | SJF scheduling | Simulates Shortest Job First (non-preemptive) CPU scheduling and calculates WT and TAT for given burst times. |
 | **8** | [`exp8_round_robin`](exp8_round_robin) | Round Robin scheduling | Simulates Round Robin CPU scheduling for given time quantum and displays WT, TAT, and Gantt chart metrics. |
 | **9** | [`exp9_producer_consumer`](exp9_producer_consumer) | Producer-Consumer using semaphores | Simulates the classic Producer-Consumer problem using bounded buffer queue operations. |
+| **10** | [`exp10_bankers_algorithm`](exp10_bankers_algorithm) | Banker's algorithm for deadlock avoidance | Implements Banker's algorithm to compute Need matrix, verify system safety, and find the safe execution sequence. |
 
 ## Requirements
 - **OS**: Linux or Windows Subsystem for Linux (WSL / WSL2 - Ubuntu recommended)
@@ -43,4 +48,9 @@ gcc main.c -o exp1
 cd exp9_producer_consumer
 gcc main.c -o exp9
 ./exp9
+
+# Example for Experiment 10:
+cd exp10_bankers_algorithm
+gcc main.c -o exp10
+./exp10
 ```
