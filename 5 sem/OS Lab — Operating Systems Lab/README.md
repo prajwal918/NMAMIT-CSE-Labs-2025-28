@@ -7,7 +7,6 @@ Programs and documentation for the Operating Systems Laboratory (5th Semester B.
 - [**OS_Lab_Line_by_Line_Study_Guide.pdf**](OS_Lab_Line_by_Line_Study_Guide.pdf) - Comprehensive 115-page line-by-line study guide covering Experiments 1–10, code line explanations, tested exam variations, and mock papers.
 - [**OS_Lab_Revision_Sheet.pdf**](OS_Lab_Revision_Sheet.pdf) - 1-page quick revision sheet summarizing all 10 experiments and key exam concepts.
 - [**OS_Lab_Guide_Source.zip**](OS_Lab_Guide_Source.zip) - Complete LaTeX source code, drills, and mock problem implementations.
-- [**Unit_II_Task_Solutions.pdf**](Unit_II_Task_Solutions.pdf) - Cryptography & Network Security Unit II worked task solutions.
 
 ## Experiments
 
