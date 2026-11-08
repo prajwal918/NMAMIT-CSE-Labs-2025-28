@@ -1,54 +1,53 @@
+// Write a C program to simulate producer consumer problem using semaphores.
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h>
 
-int main()
-{
-    int buffersize, choice=0, in=0, out=0, item=0, produce, consume;
-    printf("Enter the buffer size: ");
-    scanf("%d", &buffersize);
-    int buffer[buffersize];
-    do
-    {
-        printf("\n1. Produce\n2. Consume\n3. Exit\n");
-        printf("Enter the choice: ");
-        scanf("%d", &choice);
-        switch(choice)
-        {
+int main() {
+    int bs, ch, con, pro, it = 0, in = 0, out = 0;
+
+    printf("Enter the buffer size:");
+    scanf("%d", &bs);
+
+    int buff[bs];
+
+    while (1) {
+        printf("\n1.Producer\n2.Consume\n3.Exit\n");
+        printf("Enter the choice");
+        scanf("%d", &ch);
+
+        switch (ch) {
             case 1:
-                if (item == buffersize)
-                {
-                    printf("Buffer is full\n");
+                if (it == bs) {
+                    printf("Buffer is full");
                 }
-                else
-                {
-                    printf("Enter the value: ");
-                    scanf("%d", &produce);
-                    buffer[in] = produce;
-                    in = (in+1) % buffersize;
-                    item++;
+                else {
+                    printf("Enter the value");
+                    scanf("%d", &pro);
+                    buff[in] = pro;
+                    in = (in + 1) % bs;
+                    it++;
                 }
                 break;
+
             case 2:
-                if (item == 0)
-                {
-                    printf("Buffer is empty\n");
+                if (it == 0) {
+                    printf("Buffer empty");
                 }
-                else
-                {
-                    consume = buffer[out];
-                    printf("Consumed item is: %d\n", consume);
-                    out = (out+1) % buffersize;
-                    item--;
+                else {
+                    con = buff[out];
+                    printf("Consumed item : %d", con);
+                    it--;
+                    out = (out + 1) % bs;
                 }
                 break;
+
             case 3:
-                printf("Exiting...\n");
-                break;
+                exit(0);
+
             default:
-                printf("Invalid choice\n");
+                printf("Invalid choice");
         }
-    } while (choice != 3);
+    }
     return 0;
 }
