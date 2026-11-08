@@ -2,9 +2,11 @@
 
 Programs and documentation for the Computer Networks Laboratory (5th Semester B.E.): four network simulations written for **NS-2** (Tcl scripts, AWK analysis, XGraph plots), five network and data-link layer programs written in **Python 3**, and a distance vector routing algorithm in **C**.
 
-## Lab Manuals
-- [**CN_Lab_Manual.pdf**](CN_Lab_Manual.pdf) - Complete laboratory manual and record (Experiments 1–10) containing theory, topology diagrams, program scripts, execution workflows, sample outputs, viva voce question bank, and troubleshooting guide.
-- [**CSE_CNC_LAB_MANUAL-20CS502_2023.pdf**](CSE_CNC_LAB_MANUAL-20CS502_2023.pdf) - Department course syllabus and lab manual.
+## Lab Manuals & Study Guides
+- [**CN_Lab_Manual.pdf**](CN_Lab_Manual.pdf) - Official NMAMIT laboratory manual (Experiments 1–10) with experiment aims, program code, and test outputs.
+- [**CN_Lab_Manual_Exp1-10.pdf**](CN_Lab_Manual_Exp1-10.pdf) - Complete 57-page laboratory manual & record (Experiments 1–10) containing theory, topology diagrams, program scripts, execution workflows, sample outputs, viva voce question bank, and troubleshooting guide.
+- [**CN_Lab_Line_by_Line_Guide_Exp1-10.pdf**](CN_Lab_Line_by_Line_Guide_Exp1-10.pdf) - Comprehensive 61-page line-by-line study guide covering all programs with detailed code walkthroughs.
+- [**CSE_CNC_LAB_MANUAL-20CS502_2023.pdf**](CSE_CNC_LAB_MANUAL-20CS502_2023.pdf) - Department course syllabus and reference lab manual.
 
 ## Experiments
 
